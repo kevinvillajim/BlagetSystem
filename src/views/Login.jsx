@@ -58,7 +58,7 @@ export default function Login() {
 								<span className="textButAnim">Iniciar Sesión</span>
 							</button>
 						</form>
-						<a className="text-[2px]" href="/dashboard">
+						<a className="text-[2px]" href="/admin/dashboard">
 							entra
 						</a>
 					</div>
