@@ -11,6 +11,7 @@ import Clases from "./views/admin/Clases";
 import Usuarios from "./views/admin/Usuarios";
 import Tareas from "./views/admin/Tareas";
 import Finanzas from "./views/admin/Finanzas";
+import ClasesEstudiante from "./views/Estudiante/ClasesEstudiante";
 import Certificados from "./views/admin/Certificados";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 						<Route path="/admin/tareas" element={<Tareas />} />
 						<Route path="/admin/finanzas" element={<Finanzas />} />
 						<Route path="/admin/certificados" element={<Certificados />} />
+						<Route path="/estudiante/clases" element={<ClasesEstudiante />} />
 						<Route path="/" element={<Home />} />
 					</Routes>
 				</Router>
