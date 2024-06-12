@@ -9,6 +9,7 @@ export default function Clases() {
 		<>
 			<div>
 				<Template
+					rol="admin"
 					content={
 						<div>
 							<div>

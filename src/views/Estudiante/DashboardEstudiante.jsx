@@ -4,7 +4,7 @@ export default function Dashboard() {
 	return (
 		<>
 			<div>
-				<Template rol="admin" content="Hola" />
+				<Template rol="Estudiante" content="Hola" />
 			</div>
 		</>
 	);

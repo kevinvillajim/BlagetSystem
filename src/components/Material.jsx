@@ -12,7 +12,7 @@ export default function Material({title, archivo, img, descripcion}) {
 					</div>
 				</div>
 				<div>
-					<a href={archivo}>
+					<a href={archivo} download>
 						<span className="material-symbols-outlined text-[#6abf4c] cursor-pointer">
 							download
 						</span>

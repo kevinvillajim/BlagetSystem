@@ -1,6 +1,11 @@
 import {useState} from "react";
 
-export default function CourseProgress({courseModule, totalValue, content}) {
+export default function CourseProgress({
+	courseUrl,
+	courseUnit,
+	totalValue,
+	content,
+}) {
 	let value = totalValue;
 
 	const getColor = (value) => {
@@ -20,12 +25,16 @@ export default function CourseProgress({courseModule, totalValue, content}) {
 	return (
 		<>
 			<div className="bg-[#737272] border-b-2 border-[#ADADAD] px-[0.2rem] py-[1rem] px-[1.5rem]">
-				<div className="flex justify-between">
-					<span className="text-white font-bold">{courseModule}</span>
-					<div
-						className="w-[30px] h-[30px] rounded-md bg-[#909090] flex justify-center items-center cursor-pointer"
-						onClick={() => setShowContent(!showContent)}
-					>
+				<div
+					className="flex justify-between cursor-pointer"
+					onClick={() => setShowContent(!showContent)}
+				>
+					<a href={`${courseUrl}`}>
+						<span className="text-white font-bold cursor-pointer">
+							{courseUnit}
+						</span>
+					</a>
+					<div className="w-[30px] h-[30px] rounded-md bg-[#909090] flex justify-center items-center">
 						<span className="material-symbols-outlined text-white">
 							{showContent ? "keyboard_arrow_down" : "keyboard_arrow_up"}
 						</span>
@@ -45,11 +54,15 @@ export default function CourseProgress({courseModule, totalValue, content}) {
 					</div>
 				</div>
 				<div
-					className={`text-white text-xs mt-[1rem] ${
+					className={`pl-[1rem] text-white text-xs mt-[1rem] flex flex-col gap-3 ${
 						showContent ? "hidden" : "block"
 					}`}
 				>
-					{content}
+					{content.map((modulo, index) => (
+						<a href={modulo.url}>
+							<p>{modulo.modulo}</p>
+						</a>
+					))}
 				</div>
 			</div>
 		</>

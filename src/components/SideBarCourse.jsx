@@ -2,7 +2,7 @@ import {useState} from "react";
 import CourseProgress from "./CourseProgress";
 import Material from "./Material";
 
-export default function SideBarCourse() {
+export default function SideBarCourse({cursos}) {
 	const [toggle, setToggle] = useState(true);
 	return (
 		<>
@@ -32,54 +32,26 @@ export default function SideBarCourse() {
 					</div>
 				</header>
 				<div className={`w-[100%] ${toggle ? "inline" : "hidden"}`}>
-					<CourseProgress
-						courseModule="Hola"
-						totalValue={90}
-						content="Soy un modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola 2"
-						totalValue={80}
-						content="Soy otro modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola"
-						totalValue={90}
-						content="Soy un modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola 2"
-						totalValue={80}
-						content="Soy otro modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola"
-						totalValue={90}
-						content="Soy un modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola 2"
-						totalValue={80}
-						content="Soy otro modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola"
-						totalValue={90}
-						content="Soy un modulo"
-					/>
-					<CourseProgress
-						courseModule="Hola"
-						totalValue={90}
-						content="Soy un modulo"
-					/>
+					{cursos.curso1.units.map((course, index) => (
+						<CourseProgress
+							key={index}
+							courseUrl={course.url}
+							courseUnit={course.unit}
+							totalValue={course.value}
+							content={course.modules}
+						/>
+					))}
 				</div>
 				<div className={`${!toggle ? "block w-[100%]" : "hidden"}`}>
-					<Material
-						title="Tu cara"
-						descripcion="hola"
-						img="/curso1.png"
-						archivo="/README.md"
-					/>
+					{cursos.curso1.material.map((material, index) => (
+						<Material
+							key={index}
+							title={material.title}
+							descripcion={material.descripcion}
+							img={material.img}
+							archivo={material.archivo}
+						/>
+					))}
 				</div>
 			</div>
 		</>

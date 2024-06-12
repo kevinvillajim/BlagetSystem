@@ -6,13 +6,12 @@ import HeaderIn from "./HeaderIn";
 import PropTypes from "prop-types";
 import {sideBarOptions} from "./sideBarOptions";
 
-function Template({content}) {
+function Template({content, rol}) {
 	const [showMenu, setShowMenu] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 
 	const logo = "/logo.png";
 	const nombreCompleto = "Kevin Villacreses";
-	const rol = "admin";
 	const avatar = "/avatar.jpeg";
 
 	return (
@@ -68,6 +67,7 @@ function Template({content}) {
 
 Template.propTypes = {
 	content: PropTypes.node.isRequired,
+	rol: PropTypes.string,
 	title: PropTypes.string,
 	propButton: PropTypes.string,
 };

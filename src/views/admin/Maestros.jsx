@@ -9,6 +9,7 @@ export default function Maestros() {
 		<>
 			<div>
 				<Template
+					rol="admin"
 					content={
 						<div>
 							<div>

@@ -62,40 +62,12 @@ export const sideBarOptions = {
 		},
 	],
 	Estudiante: [
+		{link: "/estudiante/clases", icon: "menu_book", name: "Clases"},
+		{link: "/estudiante/tareas", icon: "checklist", name: "Tareas"},
 		{
-			link: "/usuarios",
-			icon: "co_present",
-			name: "Usuarios",
-		},
-		{link: "/teams", icon: "groups", name: "Teams"},
-		{link: "/metas", icon: "military_tech", name: "Metas"},
-		{link: "/tareas", icon: "checklist", name: "Tareas"},
-		{
-			link: "/finanzas",
-			icon: "attach_money",
-			name: "Finanzas",
-		},
-		{link: "/citas", icon: "menu_book", name: "Citas"},
-		{link: "/clientes", icon: "hail", name: "Clientes"},
-		{
-			link: "/proveedores",
-			icon: "local_shipping",
-			name: "Proveedores",
-		},
-		{
-			link: "/productos",
-			icon: "package_2",
-			name: "Productos",
-		},
-		{
-			link: "/inventario",
-			icon: "inventory_2",
-			name: "Inventario",
-		},
-		{
-			link: "/proformas",
-			icon: "request_quote",
-			name: "Proformas",
+			link: "/estudiante/certificados",
+			icon: "military_tech",
+			name: "Certificados",
 		},
 	],
 };

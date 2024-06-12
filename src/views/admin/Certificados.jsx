@@ -10,6 +10,7 @@ export default function Certificados() {
 		<>
 			<div>
 				<Template
+					rol="admin"
 					content={
 						<div className="px-[4rem]">
 							<PDFDownloadLink

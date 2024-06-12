@@ -12,6 +12,7 @@ import Usuarios from "./views/admin/Usuarios";
 import Tareas from "./views/admin/Tareas";
 import Finanzas from "./views/admin/Finanzas";
 import ClasesEstudiante from "./views/Estudiante/ClasesEstudiante";
+import DashboardEstudiante from "./views/Estudiante/DashboardEstudiante";
 import Certificados from "./views/admin/Certificados";
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
 						<Route path="/admin/finanzas" element={<Finanzas />} />
 						<Route path="/admin/certificados" element={<Certificados />} />
 						<Route path="/estudiante/clases" element={<ClasesEstudiante />} />
+						<Route
+							path="/estudiante/dashboard"
+							element={<DashboardEstudiante />}
+						/>
 						<Route path="/" element={<Home />} />
 					</Routes>
 				</Router>

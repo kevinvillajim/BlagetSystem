@@ -5,7 +5,7 @@ export default function Finanzas() {
 	return (
 		<>
 			<div>
-				<Template content={"Finanzas"} />
+				<Template rol="admin" content={"Finanzas"} />
 			</div>
 		</>
 	);

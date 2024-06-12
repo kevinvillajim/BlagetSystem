@@ -9,6 +9,7 @@ export default function Alumnos() {
 		<>
 			<div>
 				<Template
+					rol="admin"
 					content={
 						<div>
 							<div>

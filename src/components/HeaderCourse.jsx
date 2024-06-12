@@ -1,13 +1,6 @@
 import PropTypes from "prop-types";
 
-function Header({setShowMenu, setShowModal, course}) {
-	const handleMenuClick = () => {
-		setShowMenu && setShowMenu((prevShowMenu) => !prevShowMenu);
-	};
-	const handleModalClick = () => {
-		setShowModal && setShowModal((prevShowModal) => !prevShowModal);
-	};
-
+function HeaderCourse({title}) {
 	let colorBg = "#000";
 	let textColor = "[#fff]";
 
@@ -24,9 +17,9 @@ function Header({setShowMenu, setShowModal, course}) {
 							className="w-full h-full object-cover"
 						/>
 					</div>
-					<h2 className={`ml-[1rem] text-${textColor} text-2xl`}>{course}</h2>
+					<h2 className={`ml-[1rem] text-${textColor} text-2xl`}>{title}</h2>
 				</div>
-				<a href="/admin/dashboard">
+				<a href="/estudiante/dashboard">
 					<div className="flex cursor-pointer">
 						<span className="material-symbols-outlined text-white text-4xl">
 							close
@@ -38,11 +31,6 @@ function Header({setShowMenu, setShowModal, course}) {
 	);
 }
 
-Header.propTypes = {
-	setShowMenu: PropTypes.func,
-	setShowModal: PropTypes.func,
-	name: PropTypes.string,
-	avatar: PropTypes.string,
-};
+HeaderCourse.propTypes = {};
 
-export default Header;
+export default HeaderCourse;

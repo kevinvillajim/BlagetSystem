@@ -6,6 +6,7 @@ export default function Usuarios() {
 		<>
 			<div>
 				<Template
+					rol="admin"
 					content={
 						<div>
 							<div>

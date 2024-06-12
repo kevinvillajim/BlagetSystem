@@ -5,7 +5,7 @@ export default function Tareas() {
 	return (
 		<>
 			<div>
-				<Template content={"Tareas"} />
+				<Template rol="admin" content={"Tareas"} />
 			</div>
 		</>
 	);
