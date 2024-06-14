@@ -6,6 +6,8 @@ function Banner({ img, title }) {
         style={{
           backgroundImage: `url(${img})`,
           backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="bg-black bg-opacity-50 h-[100%] w-[100%] flex justify-left items-center relative">

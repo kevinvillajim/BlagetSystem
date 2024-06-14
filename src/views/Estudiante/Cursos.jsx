@@ -14,7 +14,7 @@ export default function Cursos({ curso, contenido }) {
           <div className={`w-[30%] ${showModal ? "block" : "hidden"}`}>
             <SideBarCourse cursos={cursos[curso]} />
           </div>
-          <div className="w-[100%]">
+          <div className="w-[100%] bg-[#191b20]">
             <ContentCourse
               subtitle={cursos[curso].title}
               content={<>{contenido}</>}
