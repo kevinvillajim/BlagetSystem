@@ -2,6 +2,7 @@ import Cursos from "./Cursos.jsx";
 import Banner from "../../components/Banner.jsx";
 import Title from "../../components/Title.jsx";
 import Paragraph from "../../components/Paragraph.jsx";
+import List from "../../components/List.jsx";
 import Image from "../../components/Image.jsx";
 import Quiz from "../../components/Quiz.jsx";
 
@@ -37,58 +38,72 @@ export default function Unidad1() {
             <Paragraph p="La Autoridad de Protección de Datos Personales es una entidad gubernamental u organismo independiente encargado de supervisar y hacer cumplir las leyes de protección de datos dentro de un país o región específica. Su función principal es proteger los derechos de los individuos en relación con el tratamiento de sus datos personales y asegurar que las organizaciones cumplan con las normativas de privacidad establecidas." />
             <Image img="/super.jpeg" />
             <Title title="2.7 Consentimiento" />
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/SKBLNlXGA28?si=xHNS2-xQJaXmsnZQ"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-            <Paragraph p="" />
-            <Image img="/super.jpeg" />
+            <Paragraph
+              p={
+                "Es importante tener muy claro sobre el consentimiento que debe dar el titular para el tratamiento de sus datos personales, para una o varias finalidades específicas. NUESTRA ORGANIZACIÓN, debe tener el consentimiento del titular para poder tratar los datos personales de acuerdo con las siguientes finalidades:"
+              }
+            />
+            <List
+              li={[
+                "Gestionar la relación contractual de los productos y servicios que el Interesado solicite o contrate con NUESTRA ORGANIZACIÓN.",
+                "Cumplir con las obligaciones legales y normativa aplicable a NUESTRA ORGANIZACIÓN",
+                "Elaboración de perfiles comerciales y de riesgos",
+                "Ofertas de productos y servicios de NUESTRA ORGANIZACIÓN y/o comercializados por socios comerciales.",
+                "Generación y gestión de modelos de análisis.",
+                "Consultar a las entidades de información crediticia o buro de crédito",
+              ]}
+            />
+
+            <div className="flex justify-center">
+              <iframe
+                width="720"
+                height="450"
+                src="https://www.youtube.com/embed/SKBLNlXGA28?si=xHNS2-xQJaXmsnZQ"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
             <div className="my-[5rem] bg-gray-800 px-[5rem]">
               <Quiz
                 questions={[
                   {
-                    question: "¿Qué es un dato personal?",
-                    options: [
-                      "Información sobre empresas",
-                      "Cualquier información que se refiere a una persona física identificada o identificable",
-                      "Información sobre objetos inanimados",
-                    ],
-                    answer: 2,
+                    question:
+                      "¿Una persona natural puede cumplir el rol de Responsable de Tratamiento de Datos Personales (RTDP)?",
+                    options: ["Verdadero", "Falso"],
+                    answer: 1,
                   },
                   {
-                    question: "¿Qué son datos sensibles?",
+                    question:
+                      "¿Qué se requiere para que una organización trate los datos personales de un titular?",
                     options: [
-                      "Datos sobre las opiniones políticas de una persona",
-                      "Datos sobre el clima",
-                      "Datos sobre las transacciones comerciales",
+                      "El consentimiento del titular para una o varias finalidades específicas.",
+                      "La aprobación de un delegado de protección de datos.",
+                      "La supervisión directa de una autoridad de protección de datos.",
                     ],
                     answer: 1,
                   },
                   {
                     question:
-                      "¿Cuál de los siguientes ejemplos sería considerado un dato personal?",
+                      "¿Qué es un destinatario en el contexto del tratamiento de datos personales?",
                     options: [
-                      "La dirección IP de un dispositivo en ciertos contextos",
-                      "El número de registro de un automóvil",
-                      "Las estadísticas de producción de una fábrica",
-                    ],
-                    answer: 1,
-                  },
-                  {
-                    question:
-                      "¿Cuál es la característica principal que diferencia a los datos sensibles de otros datos personales?",
-                    options: [
-                      "Incluyen información financiera únicamente.",
-                      "Son datos que pueden ser compartidos libremente sin restricciones.",
-                      "Su tratamiento inadecuado puede afectar significativamente los derechos y libertades de las personas.",
+                      "La persona física a quien pertenecen los datos personales.",
+                      "La entidad que decide sobre la finalidad y el tratamiento de los datos personales.",
+                      "La persona, entidad u organización que recibe los datos personales de parte del responsable del tratamiento o del encargado del tratamiento.",
                     ],
                     answer: 3,
+                  },
+                  {
+                    question:
+                      "¿Cuál es la función principal del Delegado de Protección de Datos (DPD)?",
+                    options: [
+                      "Procesar los datos personales en nombre del responsable del tratamiento.",
+                      "Monitorear la conformidad con las leyes de protección de datos y la política interna de protección de datos personales.",
+                      "Recibir y almacenar datos personales de los usuarios.",
+                    ],
+                    answer: 2,
                   },
                 ]}
               />

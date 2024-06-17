@@ -13,6 +13,12 @@ const cursos = [
         img: "/pdf.webp",
         archivo: "/proteccionDatos.pdf",
       },
+      {
+        title: "Ley Organica de Protección de Datos Personales",
+        descripcion: "Ley actualizada y vigente, aprobada en mayo de 2021",
+        img: "/pdf.webp",
+        archivo: "/lopdp.pdf",
+      },
     ],
     units: [
       {
@@ -68,170 +74,6 @@ const cursos = [
             url: "#soyunmodulo",
           },
         ],
-      },
-    ],
-    progress: 10,
-  },
-  {
-    title: "Curso 2",
-    content:
-      "En este curso veremos el desarrollo de el assdñasdasdklasjd asdasdaskajdlkasd",
-    img: "/curso1.png",
-    link: "/estudiante/cursos/curso1",
-    material: [
-      {
-        title: "Archivo de prueba",
-        descripcion: "hola este es un archivo de prueba",
-        img: "/curso1.png",
-        archivo: "/README.md",
-      },
-    ],
-    units: [
-      {
-        unit: "Unit1",
-        url: "#unit1",
-        value: 10,
-        modules: [
-          { modulo: "Modulo1", url: "#modulo1" },
-          { modulo: "Modulo2", url: "#modulo2" },
-          { modulo: "Modulo3", url: "#modulo3" },
-          { modulo: "Modulo4", url: "#modulo4" },
-        ],
-      },
-      {
-        unit: "Unit2",
-        url: "#unit2",
-        value: 2,
-        modules: [{ modulo: "hola", url: "#hola" }],
-      },
-      {
-        unit: "Unit3",
-        url: "#unit3",
-        value: 0,
-        modules: [{ modulo: "Soy un módulo", url: "#soyunmodulo" }],
-      },
-    ],
-    progress: 10,
-  },
-  {
-    title: "Curso 3",
-    content:
-      "En este curso veremos el desarrollo de el assdñasdasdklasjd asdasdaskajdlkasd",
-    img: "/curso2.png",
-    link: "/estudiante/cursos/curso1",
-    material: [
-      {
-        title: "Archivo de prueba",
-        descripcion: "hola este es un archivo de prueba",
-        img: "/curso1.png",
-        archivo: "/README.md",
-      },
-    ],
-    units: [
-      {
-        unit: "Unit1",
-        url: "#unit1",
-        value: 90,
-        modules: [
-          { modulo: "Modulo1", url: "#modulo1" },
-          { modulo: "Modulo2", url: "#modulo2" },
-          { modulo: "Modulo3", url: "#modulo3" },
-          { modulo: "Modulo4", url: "#modulo4" },
-        ],
-      },
-      {
-        unit: "Unit2",
-        url: "#unit2",
-        value: 90,
-        modules: [{ modulo: "hola", url: "#hola" }],
-      },
-      {
-        unit: "Unit3",
-        url: "#unit3",
-        value: 90,
-        modules: [{ modulo: "Soy un módulo", url: "#soyunmodulo" }],
-      },
-    ],
-    progress: 10,
-  },
-  {
-    title: "Curso 4",
-    content:
-      "En este curso veremos el desarrollo de el assdñasdasdklasjd asdasdaskajdlkasd",
-    img: "/curso3.png",
-    link: "/estudiante/cursos/curso1",
-    material: [
-      {
-        title: "Archivo de prueba",
-        descripcion: "hola este es un archivo de prueba",
-        img: "/curso1.png",
-        archivo: "/README.md",
-      },
-    ],
-    units: [
-      {
-        unit: "Unit1",
-        url: "#unit1",
-        value: 100,
-        modules: [
-          { modulo: "Modulo1", url: "#modulo1" },
-          { modulo: "Modulo2", url: "#modulo2" },
-          { modulo: "Modulo3", url: "#modulo3" },
-          { modulo: "Modulo4", url: "#modulo4" },
-        ],
-      },
-      {
-        unit: "Unit2",
-        url: "#unit2",
-        value: 100,
-        modules: [{ modulo: "hola", url: "#hola" }],
-      },
-      {
-        unit: "Unit3",
-        url: "#unit3",
-        value: 100,
-        modules: [{ modulo: "Soy un módulo", url: "#soyunmodulo" }],
-      },
-    ],
-    progress: 10,
-  },
-  {
-    title: "Curso 2",
-    content:
-      "En este curso veremos el desarrollo de el assdñasdasdklasjd asdasdaskajdlkasd",
-    img: "/curso1.png",
-    link: "/estudiante/cursos/curso1",
-    material: [
-      {
-        title: "Protección de datos personales",
-        descripcion: "Pdf de referencia para el curso",
-        img: "/curso1.png",
-        archivo: "/README.md",
-      },
-    ],
-    units: [
-      {
-        unit: "Unit1",
-        url: "#unit1",
-        value: 90,
-        modules: [
-          { modulo: "Modulo1", url: "#modulo1" },
-          { modulo: "Modulo2", url: "#modulo2" },
-          { modulo: "Modulo3", url: "#modulo3" },
-          { modulo: "Modulo4", url: "#modulo4" },
-        ],
-      },
-      {
-        unit: "Unit2",
-        url: "#unit2",
-        value: 50,
-        modules: [{ modulo: "hola", url: "#hola" }],
-      },
-      {
-        unit: "Unit3",
-        url: "#unit3",
-        value: 10,
-        modules: [{ modulo: "Soy un módulo", url: "#soyunmodulo" }],
       },
     ],
     progress: 10,

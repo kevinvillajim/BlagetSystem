@@ -13,14 +13,14 @@ function HeaderCourse({ title }) {
           id="menu-principal"
           className="flex items-center"
         >
-          <div className="w-[40px] h-[40px]">
+          <div className="w-[100px] h-[100px]">
             <img
               src="/logo.png"
               alt="logo"
               className="w-full h-full object-cover"
             />
           </div>
-          <h2 className={`ml-[1rem] text-${textColor} text-2xl`}>{title}</h2>
+          <h2 className={`ml-[3rem] text-${textColor} text-2xl`}>{title}</h2>
         </div>
         <a href="/estudiante/dashboard">
           <div className="flex cursor-pointer">

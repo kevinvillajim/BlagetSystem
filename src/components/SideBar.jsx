@@ -18,7 +18,7 @@ function SideBar({ logo, avatar, enterprise, title, name, options, rol }) {
       >
         <div className="bg-gradient-to-t from-gray-400 to-white bg-opacity-70 h-[100%]">
           <div className="flex items-center py-[1rem] flex justify-center">
-            <div className="h-[100px] flex justify-center overflow-hidden">
+            <div className="h-[170px] flex justify-center overflow-hidden">
               <img
                 alt="logo"
                 src={logo}

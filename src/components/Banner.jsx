@@ -2,7 +2,7 @@ function Banner({ img, title }) {
   return (
     <>
       <div
-        className="h-[29rem] bg-black bg-fixed"
+        className="h-[28rem] bg-black bg-fixed"
         style={{
           backgroundImage: `url(${img})`,
           backgroundPosition: "center",

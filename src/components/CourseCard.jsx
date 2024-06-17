@@ -29,7 +29,7 @@ function Card({ title, img, description, progress, link }) {
             <div>
               <h1 className="text-[20px] font-semibold">{title}</h1>
             </div>
-            <p className="">{description}</p>
+            <p className="w-[90%]">{description}</p>
             <div className="pb-[2rem]">
               <ProgressBar
                 totalValue={progress}
