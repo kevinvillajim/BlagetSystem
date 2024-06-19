@@ -21,7 +21,10 @@ export default function Unidad1() {
             ref={scrollContainerRef}
             className="h-[38rem] overflow-auto"
           >
-            <ScrollProgress scrollContainerRef={scrollContainerRef} />
+            <ScrollProgress
+              scrollContainerRef={scrollContainerRef}
+              unit={3}
+            />
             <Banner
               img="/banner3.jpg"
               title="Unidad 3: Derechos del interesado"
@@ -135,6 +138,7 @@ export default function Unidad1() {
             <Title title="Contamos con tu apoyo!" />
             <SubTitle subtitle="Estamos fortaleciendo la seguridad de la información en nuestra organización y lo más importante para lograrlo, ¡eres tú!" />
             <Quiz
+              unit={3}
               questions={[
                 {
                   question: "¿Qué es la ingeniería social?",

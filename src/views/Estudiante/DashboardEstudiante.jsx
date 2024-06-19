@@ -11,10 +11,13 @@ export default function DashboardEstudiante() {
           content={
             <div className="grid grid-cols-4 gap-5">
               {cursos.map((curso, index) => {
-                let totalSum = curso.units.reduce(
-                  (accumulator, unit) => accumulator + unit.value,
-                  0
-                );
+                let totalSum = curso.units.reduce((accumulator, unit) => {
+                  const unitProgress = localStorage.getItem(unit.value);
+                  return (
+                    accumulator +
+                    (unitProgress ? parseInt(unitProgress, 10) : 0)
+                  );
+                }, 0);
                 let average = totalSum / curso.units.length;
                 average = parseInt(average);
                 return (

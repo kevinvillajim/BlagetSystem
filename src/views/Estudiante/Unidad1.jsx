@@ -18,7 +18,10 @@ export default function Unidad1() {
             ref={scrollContainerRef}
             className="h-[38rem] overflow-auto"
           >
-            <ScrollProgress scrollContainerRef={scrollContainerRef} />
+            <ScrollProgress
+              scrollContainerRef={scrollContainerRef}
+              unit={1}
+            />
             <Banner
               img="/banner1.jpg"
               title="Unidad 1: Definiciones Importantes"
@@ -34,6 +37,7 @@ export default function Unidad1() {
             <Paragraph p="Los datos sensibles son un tipo específico de datos personales que revelan información particularmente delicada y cuyo tratamiento inadecuado puede afectar significativamente los derechos y libertades de las personas. Estos datos incluyen aspectos como el origen racial o étnico, opiniones políticas, creencias religiosas o filosóficas, afiliación sindical, datos genéticos, datos biométricos destinados a identificar de manera unívoca a una persona física, datos relativos a la salud, vida sexual u orientación sexual de una persona. Debido a su naturaleza, los datos sensibles están sujetos a un nivel más alto de protección y regulaciones estrictas para asegurar su confidencialidad y uso adecuado." />
             <Image img="/ds1.png" />
             <Quiz
+              unit={1}
               questions={[
                 {
                   question: "¿Qué es un dato personal?",

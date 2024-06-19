@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function SideBar({ logo, avatar, enterprise, title, name, options, rol }) {
   let colorBg = "#404242";
-  let textColor = "[black]";
+  let textColor = "[gray-900]";
   let bgImg = "/bgImg.jpg";
 
   return (
@@ -16,7 +16,7 @@ function SideBar({ logo, avatar, enterprise, title, name, options, rol }) {
           backgroundPosition: "center",
         }}
       >
-        <div className="bg-gradient-to-t from-gray-400 to-white bg-opacity-70 h-[100%]">
+        <div className="bg-gradient-to-t from-gray-500 to-white bg-opacity-90 h-[100%]">
           <div className="flex items-center py-[1rem] flex justify-center">
             <div className="h-[170px] flex justify-center overflow-hidden">
               <img
@@ -31,7 +31,7 @@ function SideBar({ logo, avatar, enterprise, title, name, options, rol }) {
           </div>
           <hr className={`border-${textColor}`} />
           <div className="py-[1rem] flex flex-col items-center px-[2rem]">
-            <div className="w-[70px] h-[70px] flex justify-center items-center rounded-full overflow-hidden border-4 border-black">
+            <div className="w-[70px] h-[70px] flex justify-center items-center rounded-full overflow-hidden border-4 border-[#95c11f] mb-[0.5rem]">
               <img
                 alt="avatar"
                 src={avatar}

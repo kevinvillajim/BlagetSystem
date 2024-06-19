@@ -19,7 +19,10 @@ export default function Unidad1() {
             ref={scrollContainerRef}
             className="h-[38rem] overflow-auto"
           >
-            <ScrollProgress scrollContainerRef={scrollContainerRef} />
+            <ScrollProgress
+              scrollContainerRef={scrollContainerRef}
+              unit={2}
+            />
             <Banner
               img="/banner2.webp"
               title="Unidad 2: Integrantes del sistema de protección de datos personales"
@@ -88,6 +91,7 @@ export default function Unidad1() {
               ></iframe>
             </div>
             <Quiz
+              unit={2}
               questions={[
                 {
                   question:

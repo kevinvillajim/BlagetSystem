@@ -59,7 +59,11 @@ export default function SideBarCourse({ cursos }) {
               key={index}
               courseUrl={course.url}
               courseUnit={course.unit}
-              totalValue={course.value}
+              totalValue={
+                localStorage.getItem(course.value)
+                  ? parseInt(localStorage.getItem(course.value))
+                  : 0
+              }
               content={course.modules}
               defaultOpen={index !== initialOpenIndex}
               onClick={() => {

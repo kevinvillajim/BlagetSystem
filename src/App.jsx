@@ -14,6 +14,7 @@ import Finanzas from "./views/admin/Finanzas";
 import Unidad1 from "./views/Estudiante/Unidad1";
 import Unidad2 from "./views/Estudiante/Unidad2";
 import Unidad3 from "./views/Estudiante/Unidad3";
+import Certificado from "./views/Estudiante/Certificado";
 import DashboardEstudiante from "./views/Estudiante/DashboardEstudiante";
 import Certificados from "./views/admin/Certificados";
 
@@ -81,6 +82,10 @@ function App() {
             <Route
               path="/estudiante/dashboard"
               element={<DashboardEstudiante />}
+            />
+            <Route
+              path="/estudiante/cursos/curso1/certificado"
+              element={<Certificado />}
             />
             <Route
               path="/"

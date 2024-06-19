@@ -22,7 +22,7 @@ function ModalUser() {
           <span className="text-modal text-[#fff]">My Profile</span>
         </a>
         <hr className="border-[#fff]" />
-        <a href="/">
+        <a href="/login">
           <div
             id="logout"
             className="hover:bg-[#be6570] cursor-pointer rounded-xl p-[0.5rem] flex items-center mt-[0.5rem]"
