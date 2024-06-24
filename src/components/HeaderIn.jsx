@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Header({setShowMenu, setShowModal, name, avatar}) {
+function Header({setShowMenu, setShowModal, name, avatar, colorBg, textColor}) {
 	const handleMenuClick = () => {
 		setShowMenu && setShowMenu((prevShowMenu) => !prevShowMenu);
 	};
@@ -8,13 +8,12 @@ function Header({setShowMenu, setShowModal, name, avatar}) {
 		setShowModal && setShowModal((prevShowModal) => !prevShowModal);
 	};
 
-	let colorBg = "#000";
-	let textColor = "[#fff]";
-
 	return (
 		<>
 			<header
-				className={`w-[100%] h-[4rem] bg-[${colorBg}] flex justify-between items-center px-[2rem] shadow-sm`}
+				className={`w-[100%] h-[4rem] bg-[${
+					colorBg ? colorBg : "#000"
+				}] flex justify-between items-center px-[2rem] shadow-sm`}
 			>
 				<div
 					id="menu-principal"
@@ -25,7 +24,9 @@ function Header({setShowMenu, setShowModal, name, avatar}) {
 						{" "}
 						menu{" "}
 					</span>
-					<h2 className={`ml-[1rem] text-${textColor}`}>Home</h2>
+					<h2 className={`ml-[1rem] text-[${textColor ? textColor : "#fff"}]`}>
+						Home
+					</h2>
 				</div>
 				<div
 					className="flex cursor-pointer"
@@ -38,10 +39,16 @@ function Header({setShowMenu, setShowModal, name, avatar}) {
 						className="w-[2.5rem] h-[2.5rem] rounded-full object-cover"
 					/>
 					<div className="flex items-center">
-						<h2 className={`ml-[1rem] text-${textColor}`}>{name}</h2>
+						<h2
+							className={`ml-[1rem] text-[${textColor ? textColor : "#fff"}]`}
+						>
+							{name}
+						</h2>
 						<span
 							id="more"
-							className={`material-symbols-outlined text-${textColor}`}
+							className={`material-symbols-outlined text-[${
+								textColor ? textColor : "#fff"
+							}]`}
 						>
 							expand_more
 						</span>

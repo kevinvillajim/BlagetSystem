@@ -5,14 +5,13 @@ import ModalUser from "./ModalUser";
 import HeaderIn from "./HeaderIn";
 import PropTypes from "prop-types";
 import {sideBarOptions} from "./sideBarOptions";
+import user from "./user.js";
 
 function Template({content, rol}) {
 	const [showMenu, setShowMenu] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 
 	const logo = "/logo.png";
-	const nombreCompleto = "Kevin Villacreses";
-	const avatar = "/avatar.jpeg";
 
 	return (
 		<>
@@ -30,17 +29,17 @@ function Template({content, rol}) {
 				>
 					<SideBar
 						logo={logo}
-						avatar={avatar}
+						avatar={user.avatar}
 						options={sideBarOptions}
-						name={nombreCompleto}
+						name={user.nombre + " " + user.apellido}
 						rol={rol}
 					/>
 				</div>
 				<div className={showMenu ? "col-span-1 md:col-span-7" : "w-screen"}>
 					<div>
 						<HeaderIn
-							name={nombreCompleto}
-							avatar={avatar}
+							name={user.nombre + " " + user.apellido}
+							avatar={user.avatar}
 							setShowMenu={setShowMenu}
 							setShowModal={setShowModal}
 						/>
