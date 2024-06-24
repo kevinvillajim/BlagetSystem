@@ -4,7 +4,7 @@ const cursos = [
     content:
       "Este curso abarca los aspectos fundamentales de la protección de datos personales y sus definiciones, así como medidas de protección, destacando su importancia y prevención.",
     img: "/curso1.webp",
-    link: "/estudiante/cursos/curso1/unidad1",
+    link: "/estudiante/cursos/curso1",
     material: [
       {
         title: "Pdf Referencial",

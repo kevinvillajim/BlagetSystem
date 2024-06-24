@@ -63,7 +63,7 @@ export const sideBarOptions = {
   ],
   Estudiante: [
     { link: "/estudiante/dashboard", icon: "menu_book", name: "Dashboard" },
-    { link: "/estudiante/tareas", icon: "checklist", name: "Tareas" },
+    // { link: "/estudiante/tareas", icon: "checklist", name: "Tareas" },
     {
       link: "/estudiante/certificados",
       icon: "military_tech",

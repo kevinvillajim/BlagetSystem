@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-function Card({ title, img, description, progress, link }) {
+function CourseCard({ title, img, description, progress, link }) {
   return (
     <>
       <div className="flex flex-col border-b-2 border-[#22c55e] bg-[#eaeaea] rounded-md pb-[1rem]">
@@ -36,7 +36,7 @@ function Card({ title, img, description, progress, link }) {
               <h1 className="text-[20px] font-semibold">{title}</h1>
             </div>
           </a>
-          <p className="w-[90%]">{description}</p>
+          <p className="w-[90%] text-[14px]">{description}</p>
           <div className="">
             <ProgressBar
               totalValue={progress}
@@ -44,13 +44,16 @@ function Card({ title, img, description, progress, link }) {
             />
           </div>
           {progress === 100 ? (
-            <a href="/estudiante/cursos/curso1/certificado">
-              <div className="flex items-center mt-[1rem] justify-center">
-                <IconButton aria-label="delete">
-                  <WorkspacePremiumIcon color="success" />
-                </IconButton>
-              </div>
-            </a>
+            <>
+              <a href={`${link}/certificado`}>
+                <div className="flex items-center mt-[1rem] justify-center">
+                  <IconButton aria-label="delete">
+                    <WorkspacePremiumIcon color="success" />
+                  </IconButton>
+                </div>
+              </a>
+              {localStorage.setItem("isFinished", "true")}
+            </>
           ) : (
             ""
           )}
@@ -60,4 +63,4 @@ function Card({ title, img, description, progress, link }) {
   );
 }
 
-export default Card;
+export default CourseCard;

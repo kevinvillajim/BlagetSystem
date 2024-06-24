@@ -14,9 +14,12 @@ import Finanzas from "./views/admin/Finanzas";
 import Unidad1 from "./views/Estudiante/Unidad1";
 import Unidad2 from "./views/Estudiante/Unidad2";
 import Unidad3 from "./views/Estudiante/Unidad3";
+import CursosRedirect from "./views/Estudiante/CursosRedirect";
 import Certificado from "./views/Estudiante/Certificado";
 import DashboardEstudiante from "./views/Estudiante/DashboardEstudiante";
 import Certificados from "./views/admin/Certificados";
+import CertificadosEstudiante from "./views/Estudiante/CertificadosEstudiante";
+import Perfil from "./views/Perfil";
 
 function App() {
   return (
@@ -84,8 +87,20 @@ function App() {
               element={<DashboardEstudiante />}
             />
             <Route
+              path="/estudiante/certificados"
+              element={<CertificadosEstudiante />}
+            />
+            <Route
               path="/estudiante/cursos/curso1/certificado"
               element={<Certificado />}
+            />
+            <Route
+              path="/estudiante/cursos/curso1"
+              element={<CursosRedirect />}
+            />
+            <Route
+              path="/profile"
+              element={<Perfil />}
             />
             <Route
               path="/"
