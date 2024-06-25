@@ -31,7 +31,7 @@ export const arrayAlumnos = [
 export const arrayClases = [
   {
     id: "1",
-    clase: "Arbitraje Hibrido",
+    clase: "Protección de datos",
     maestro: "1",
     participantes: "",
   },
