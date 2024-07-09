@@ -166,7 +166,7 @@ const Perfil = () => {
 						<div>
 							<p className="text-gray-600 text-xs">created by</p>
 							<a
-								href="https://github.com/kevinvillajim"
+								href="https://kevinvillajim.github.io/Portfolio/"
 								className="text-blue-500 text-xs font-medium"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -174,7 +174,12 @@ const Perfil = () => {
 								kevinvillajim
 							</a>
 						</div>
-						<div className="text-xs dark:text-gray-600">Sinergy Hard ©</div>
+						<div>
+							<div className="text-xs dark:text-gray-600">Sinergy Hard ©</div>
+							<div className="text-xs dark:text-gray-600">
+								Esparta Agencia Creativa ©
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
