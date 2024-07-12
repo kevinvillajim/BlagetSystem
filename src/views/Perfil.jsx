@@ -1,10 +1,10 @@
 import {useState} from "react";
 import ModalUser from "../components/ModalUser";
-import user from "../components/user";
 
 const Perfil = () => {
 	const [showMenu, setShowMenu] = useState(true);
 	const [showModal, setShowModal] = useState(false);
+	const user = JSON.parse(localStorage.getItem("user"));
 
 	const handleMenuClick = () => {
 		setShowMenu((prevShowMenu) => !prevShowMenu);
@@ -37,14 +37,12 @@ const Perfil = () => {
 					onClick={handleModalClick}
 				>
 					<img
-						src={user.avatar}
+						src={user.avatar ? user.avatar : "avatarDef.png"}
 						alt="avatar"
 						className="w-[2.5rem] h-[2.5rem] rounded-full object-cover"
 					/>
 					<div className="flex items-center">
-						<h2 className="ml-[1rem] text-white">
-							{user.nombre + " " + user.apellido}
-						</h2>
+						<h2 className="ml-[1rem] text-white">{user.nombre}</h2>
 						<span id="more" className="material-symbols-outlined text-white">
 							expand_more
 						</span>
@@ -61,7 +59,7 @@ const Perfil = () => {
 				</div>
 			</header>
 			<div className="w-[100%] flex justify-center">
-				<div className="w-[35%] py-3">
+				<div className="w-[35%] py-1">
 					<div className="mb-8">
 						<h1 className="font-bold text-3xl mb-2 text-center dark:text-gray-400">
 							Información Personal
@@ -85,14 +83,14 @@ const Perfil = () => {
 							</div>
 							<a
 								href="/edit-profile"
-								className="px-4 py-2 border rounded-md border-gray-300 dark:text-gray-400"
+								className="px-4 py-1 border rounded-md border-gray-300 dark:text-gray-400"
 							>
 								Edit
 							</a>
 						</div>
 
 						{/* Photo */}
-						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
+						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-1 mb-3">
 							<div className="w-1/5">
 								<h6 className="text-gray-500 text-xs font-medium dark:text-gray-400">
 									FOTO
@@ -101,12 +99,11 @@ const Perfil = () => {
 							<div className="w-4/5 flex items-center">
 								<img
 									className="rounded-md w-12 h-12 object-cover"
-									src={user.avatar ? `${user.avatar}` : "avatarDef.png"}
+									src={user.avatar ? user.avatar : "avatarDef.png"}
 									alt="profile"
 								/>
 							</div>
 						</div>
-
 						{/* Name */}
 						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
 							<div className="w-1/5">
@@ -114,13 +111,19 @@ const Perfil = () => {
 									NOMBRE
 								</h6>
 							</div>
-							<div className="w-4/5 dark:text-gray-400">
-								{user.nombre + " " + user.apellido}
-							</div>
+							<div className="w-4/5 dark:text-gray-400">{user.name}</div>
 						</div>
-
-						{/* Bio */}
+						{/* CI */}
 						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
+							<div className="w-1/5">
+								<h6 className="text-gray-500 text-xs font-medium dark:text-gray-400">
+									CI
+								</h6>
+							</div>
+							<div className="w-4/5 dark:text-gray-400">{user.ci}</div>
+						</div>
+						{/* Bio */}
+						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-1 mb-1">
 							<div className="w-1/5">
 								<h6 className="text-gray-500 text-xs font-medium dark:text-gray-400">
 									BIO
@@ -130,7 +133,7 @@ const Perfil = () => {
 						</div>
 
 						{/* Phone */}
-						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
+						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-1 mb-3">
 							<div className="w-1/5">
 								<h6 className="text-gray-500 text-xs font-medium dark:text-gray-400">
 									TELÉFONO
@@ -140,7 +143,7 @@ const Perfil = () => {
 						</div>
 
 						{/* Email */}
-						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
+						<div className="flex items-center border-b border-gray-200 dark:border-gray-700 pb-1 mb-3">
 							<div className="w-1/5">
 								<h6 className="text-gray-500 text-xs font-medium dark:text-gray-400">
 									EMAIL
@@ -156,13 +159,11 @@ const Perfil = () => {
 									PASSWORD
 								</h6>
 							</div>
-							<div className="w-4/5 dark:text-gray-400">
-								{Array(user.password.length).fill("•").join("")}
-							</div>
+							<div className="w-4/5 dark:text-gray-400">••••••••••</div>
 						</div>
 					</div>
 
-					<div className="flex justify-between items-center mt-4">
+					<div className="flex justify-between items-center">
 						<div>
 							<p className="text-gray-600 text-xs">created by</p>
 							<a

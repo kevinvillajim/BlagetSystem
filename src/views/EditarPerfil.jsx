@@ -1,29 +1,26 @@
+import api from "../components/api";
 import {useState, useEffect} from "react";
 import ModalUser from "../components/ModalUser";
-import user from "../components/user";
 
 const ProfileEdit = () => {
+	const user = JSON.parse(localStorage.getItem("user"));
 	const [userData, setUserData] = useState({
-		name: "",
-		bio: "",
-		phone: "",
-		email: "",
+		name: user.name || "",
+		bio: user.bio || "",
+		phone: user.phone || "",
+		email: user.email || "",
 		password: "",
-		photo: "",
+		photo: user.avatar || "avatarDef.png",
 	});
 
 	useEffect(() => {
-		// Fetch user data from the server or use the imported user data
-		// Example: setUserData(user);
-
-		// Simulating fetching user data
 		setUserData({
-			name: user.nombre,
-			bio: user.bio,
-			phone: user.phone,
-			email: user.email,
-			password: user.password,
-			photo: user.avatar ? user.avatar : "avatarDef.png",
+			name: user.name || "",
+			bio: user.bio || "",
+			phone: user.phone || "",
+			email: user.email || "",
+			password: user.password || "",
+			photo: user.avatar || "avatarDef.png",
 		});
 	}, []);
 
@@ -35,9 +32,34 @@ const ProfileEdit = () => {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handlePhotoChange = async (e) => {
+		if (e.target.files && e.target.files[0]) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setUserData((prevData) => ({
+					...prevData,
+					photo: reader.result,
+				}));
+			};
+			reader.readAsDataURL(e.target.files[0]);
+		}
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Handle form submission to update user data
+		try {
+			const response = await api.post("/edit-profile", {
+				...userData,
+				photo: userData.photo,
+			});
+
+			localStorage.setItem("user", JSON.stringify(response.data.user));
+			setUserData(response.data.user);
+			window.location.href = "/profile";
+		} catch (error) {
+			console.error("Error al actualizar el perfil:", error.response.data);
+			// Manejar errores
+		}
 	};
 
 	const [showMenu, setShowMenu] = useState(true);
@@ -74,14 +96,12 @@ const ProfileEdit = () => {
 					onClick={handleModalClick}
 				>
 					<img
-						src={user.avatar}
-						alt="avatar"
+						src={user.avatar ? user.avatar : "avatarDef.png"}
+						alt={user.name + "avatar"}
 						className="w-[2.5rem] h-[2.5rem] rounded-full object-cover"
 					/>
 					<div className="flex items-center">
-						<h2 className="ml-[1rem] text-white">
-							{user.nombre + " " + user.apellido}
-						</h2>
+						<h2 className="ml-[1rem] text-white">{user.name}</h2>
 						<span id="more" className="material-symbols-outlined text-white">
 							expand_more
 						</span>
@@ -132,7 +152,7 @@ const ProfileEdit = () => {
 									type="file"
 									accept="image/*"
 									name="photo"
-									// onChange={handlePhotoChange}
+									onChange={handlePhotoChange}
 									className="hidden"
 								/>
 							</div>
@@ -198,7 +218,7 @@ const ProfileEdit = () => {
 								name="password"
 								value={userData.password}
 								onChange={handleChange}
-								placeholder="Enter your password..."
+								placeholder="Change your password..."
 								className="w-full border border-gray-300 rounded-md p-2 dark:bg-gray-700 dark:text-gray-400"
 							/>
 						</div>
@@ -223,7 +243,12 @@ const ProfileEdit = () => {
 								kevinvillajim
 							</a>
 						</div>
-						<div className="text-xs dark:text-gray-600">Sinergy Hard ©</div>
+						<div>
+							<div className="text-xs dark:text-gray-600">Sinergy Hard ©</div>
+							<div className="text-xs dark:text-gray-600">
+								Esparta Agencia Creativa ©
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

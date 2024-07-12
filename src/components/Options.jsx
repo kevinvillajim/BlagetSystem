@@ -49,7 +49,7 @@ const StyledMenu = styled((props) => (
 	},
 }));
 
-export default function CustomizedMenus() {
+export default function Options({course}) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -59,8 +59,13 @@ export default function CustomizedMenus() {
 		setAnchorEl(null);
 	};
 
-	const resetProgress = () => {
-		localStorage.clear();
+	const resetProgress = (curso) => {
+		Object.keys(localStorage).forEach((key) => {
+			if (key.includes(`Course${curso}`)) {
+				localStorage.removeItem(key);
+			}
+		});
+		localStorage.removeItem(`Course${curso}initialOpenIndex`);
 	};
 
 	return (
@@ -85,8 +90,9 @@ export default function CustomizedMenus() {
 			>
 				<MenuItem
 					onClick={() => {
-						resetProgress();
+						resetProgress(course);
 						handleClose();
+						window.location.reload();
 					}}
 					disableRipple
 				>

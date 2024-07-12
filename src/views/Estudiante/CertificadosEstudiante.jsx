@@ -3,6 +3,23 @@ import Gallery from "../../components/Gallery";
 import cursos from "../../components/cursos";
 
 export default function DashboardEstudiante() {
+	const user = JSON.parse(localStorage.getItem("user"));
+
+	if (!user) {
+		return (
+			<div className="w-screen h-screen flex justify-center items-center">
+				<div className="loader-4">
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+				</div>
+			</div>
+		);
+	}
 	return (
 		<>
 			<div>

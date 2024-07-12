@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import {useEffect, useState} from "react";
 
-const ScrollProgress = ({scrollContainerRef, unit}) => {
+const ScrollProgress = ({scrollContainerRef, unit, course}) => {
 	const [completion, setCompletion] = useState(0);
 	const [top, setTop] = useState(() => {
-		const savedTop = localStorage.getItem(`Unidad${unit}`);
+		const savedTop = localStorage.getItem(`Course${course}Unidad${unit}`);
 		return savedTop ? parseInt(savedTop, 10) : 0;
 	});
 
 	const isQuizCompleted = () => {
-		return localStorage.getItem(`Quiz${unit}`) === "true";
+		return localStorage.getItem(`Course${course}Quiz${unit}`) === "true";
 	};
 
 	useEffect(() => {
@@ -34,7 +34,7 @@ const ScrollProgress = ({scrollContainerRef, unit}) => {
 				if (totalScroll > top) {
 					setTop(totalScroll);
 					localStorage.setItem(
-						`Unidad${unit}`,
+						`Course${course}Unidad${unit}`,
 						Math.floor(totalScroll).toString()
 					);
 				}
@@ -58,10 +58,10 @@ const ScrollProgress = ({scrollContainerRef, unit}) => {
 		if (
 			isQuizCompleted() &&
 			top < 100 &&
-			parseInt(localStorage.getItem(`Unidad${unit}`), 10) >= 95
+			parseInt(localStorage.getItem(`Course${course}Unidad${unit}`), 10) >= 95
 		) {
 			setTop(100);
-			localStorage.setItem(`Unidad${unit}`, "100");
+			localStorage.setItem(`Course${course}Unidad${unit}`, "100");
 		}
 	}, [completion, isQuizCompleted, top, unit]);
 

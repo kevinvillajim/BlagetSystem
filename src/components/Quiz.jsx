@@ -40,7 +40,7 @@ const style = {
 	p: 4,
 };
 
-const Quiz = ({questions, unit}) => {
+const Quiz = ({questions, unit, course}) => {
 	const initialAnswers = questions.map(() => null);
 	const [answers, setAnswers] = useState(initialAnswers);
 	const [score, setScore] = useState(null);
@@ -62,7 +62,7 @@ const Quiz = ({questions, unit}) => {
 		});
 		setScore(score);
 		if (score === questions.length) {
-			localStorage.setItem(`Quiz${unit}`, "true");
+			localStorage.setItem(`Course${course}Quiz${unit}`, "true");
 			setShowConfetti(true);
 		}
 	};
@@ -76,7 +76,7 @@ const Quiz = ({questions, unit}) => {
 	};
 
 	const handleComplete = (unit) => {
-		localStorage.setItem(`Unidad${unit}`, "100");
+		localStorage.setItem(`Course${course}Unidad${unit}`, "100");
 	};
 
 	return (
