@@ -37,10 +37,15 @@ export default function Register() {
 			fetchUser();
 			navigate("/estudiante/dashboard");
 		} catch (error) {
-			if (error.response && error.response.data && error.response.data.error) {
-				setError(error.response.data.error);
+			if (
+				error.response &&
+				error.response.data &&
+				error.response.data.message
+			) {
+				setError(error.response.data.message);
 			} else {
-				setError("");
+				setError("Error desconocido al registrar usuario");
+				console.log(error);
 			}
 		}
 	};

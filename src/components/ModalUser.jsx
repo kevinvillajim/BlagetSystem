@@ -1,8 +1,16 @@
+import {useNavigate} from "react-router-dom";
+
 function ModalUser() {
+	const navigate = useNavigate();
 	function logout() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		window.location.reload();
+		Object.keys(localStorage).forEach((key) => {
+			if (key.startsWith("Course")) {
+				localStorage.removeItem(key);
+			}
+		});
+		navigate("/login");
 	}
 
 	return (
