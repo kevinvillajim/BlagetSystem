@@ -13,9 +13,19 @@ export default function Login() {
 	const fetchUser = async () => {
 		try {
 			const response = await api.post("/me");
-			localStorage.setItem("user", JSON.stringify(response.data));
+			if (response && response.data) {
+				localStorage.setItem("user", JSON.stringify(response.data));
+				return response.data;
+			} else {
+				throw new Error("Failed to fetch user");
+			}
 		} catch (error) {
-			console.error("Error fetching user:", error.response.data);
+			console.error(
+				"Error fetching user:",
+				error.response ? error.response.data : error.message
+			);
+			setError("Error fetching user data");
+			return null;
 		}
 	};
 	const fetchProgress = async () => {
@@ -95,9 +105,14 @@ export default function Login() {
 		try {
 			const response = await api.post("/auth/login", {email, password});
 			localStorage.setItem("token", response.data.access_token);
-			await fetchUser();
-			await fetchProgress();
-			navigate("/estudiante/dashboard"); // Redirige después del inicio de sesión
+			const user = await fetchUser();
+
+			if (user.role === 1) {
+				navigate("/admin/dashboard");
+			} else {
+				navigate("/estudiante/dashboard");
+				await fetchProgress();
+			}
 		} catch (error) {
 			if (
 				(error.response &&

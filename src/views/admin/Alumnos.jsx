@@ -1,10 +1,90 @@
 import Template from "../../components/Template";
 import {ModalNew} from "../../components/ModalNew";
-import {arrayAlumnos} from "../../components/data";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import api from "../../components/api";
+import cursos from "../../components/cursos";
 
 export default function Alumnos() {
 	const [showModalNew, setShowModalNew] = useState(false);
+	const [alumnos, setAlumnos] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [loading, setLoading] = useState(true); // Nuevo estado para la carga
+
+	useEffect(() => {
+		fetchAlumnos();
+	}, []);
+	async function fetchAlumnos() {
+		try {
+			// Realiza las dos solicitudes de forma concurrente
+			const [responseAlumnos, responseProgress] = await Promise.all([
+				api.get("/users"),
+				api.get("/progress"),
+			]);
+
+			const alumnosData = responseAlumnos.data;
+			const progressData = responseProgress.data;
+
+			// Mapear los alumnos con su progreso
+			const alumnosConProgreso = alumnosData.map((alumno) => {
+				const progress = calculateProgress(alumno.id, progressData);
+				return {
+					...alumno,
+					progress,
+				};
+			});
+
+			setAlumnos(alumnosConProgreso);
+		} catch (error) {
+			console.error(
+				"Error fetching Alumnos data:",
+				error.response?.data || error.message
+			);
+		} finally {
+			setLoading(false); // Cambiar el estado de carga a falso después de obtener los datos
+		}
+	}
+
+	function calculateProgress(userId, progressData) {
+		const cursosTotales = cursos.length;
+		let cursosCompletados = 0;
+
+		cursos.forEach((curso) => {
+			const unidadesCurso = curso.units.length;
+
+			const unidadesCompletadas = progressData.filter((progress) => {
+				const matchesUser = progress.user_id === userId;
+				const matchesCourse = progress.course_id === curso.id;
+				const isCompleted =
+					progress.completed === true || progress.completed === 1;
+
+				return matchesUser && matchesCourse && isCompleted;
+			}).length;
+
+			if (unidadesCompletadas === unidadesCurso) {
+				cursosCompletados++;
+			}
+		});
+
+		return `${cursosCompletados}/${cursosTotales}`;
+	}
+
+	// Componente de carga
+	if (loading) {
+		return (
+			<div className="w-screen h-screen flex justify-center items-center">
+				<div className="loader-4">
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<>
 			<div>
@@ -39,6 +119,8 @@ export default function Alumnos() {
 													className="h-[2.3rem] border border-slate-300 rounded-md px-[1rem] text-[#797675]"
 													id="search"
 													name="search"
+													value={searchTerm}
+													onChange={(e) => setSearchTerm(e.target.value)}
 												/>
 											</div>
 											<table className="w-[100%] table-auto">
@@ -57,10 +139,10 @@ export default function Alumnos() {
 															Email
 														</th>
 														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															Dirección
+															Teléfono
 														</th>
 														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															Nacimiento
+															Cursos Terminados
 														</th>
 														<th className="bg-[#fff] text-[#000632] h-[3rem] w-[7%]">
 															Acciones
@@ -68,59 +150,51 @@ export default function Alumnos() {
 													</tr>
 												</thead>
 												<tbody>
-													{arrayAlumnos.map((alumno) => {
-														return (
-															<tr className="usuario" key={alumno.id}>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.id}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.ci}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.nombre}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.email}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.direccion}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{alumno.nacimiento}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2] flex justify-evenly items-center">
-																	<span
-																		data-maestro-id={alumno.id}
-																		className="material-symbols-outlined cursor-pointer text-[#FFC300] edit-new"
+													{alumnos.map((alumno) => (
+														<tr key={alumno.id}>
+															<td className="h-[3rem] bg-[#f2f2f2]">
+																{alumno.id}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2]">
+																{alumno.ci}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2]">
+																{alumno.name}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2]">
+																{alumno.email}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2]">
+																{alumno.phone}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2] text-center">
+																{alumno.progress}
+															</td>
+															<td className="h-[3rem] bg-[#f2f2f2] flex justify-evenly items-center">
+																<form action="" method="POST">
+																	<input
+																		type="hidden"
+																		name="action"
+																		value="delete"
+																	/>
+																	<input
+																		type="number"
+																		hidden
+																		defaultValue={alumno.id}
+																		name="id"
+																	/>
+																	<button
+																		type="submit"
+																		className="bg-[none] border-[none]"
 																	>
-																		edit
-																	</span>
-																	<form action="" method="POST">
-																		<input
-																			type="hidden"
-																			name="action"
-																			value="delete"
-																		/>
-																		<input
-																			type="number"
-																			hidden
-																			value={alumno.id}
-																			name="id"
-																		/>
-																		<button
-																			type="submit"
-																			className="bg-[none] border-[none]"
-																		>
-																			<span className="material-symbols-outlined cursor-pointer text-[red]">
-																				delete
-																			</span>
-																		</button>
-																	</form>
-																</td>
-															</tr>
-														);
-													})}
+																		<span className="material-symbols-outlined cursor-pointer text-[red]">
+																			delete
+																		</span>
+																	</button>
+																</form>
+															</td>
+														</tr>
+													))}
 												</tbody>
 											</table>
 										</div>
@@ -154,26 +228,10 @@ export default function Alumnos() {
 							style: "hidden",
 							value: localStorage.getItem("id"),
 						},
-						{
-							name: "name",
-							label: "Nombre",
-							style: "",
-						},
-						{
-							name: "email",
-							label: "Email",
-							style: "",
-						},
-						{
-							name: "adress",
-							label: "Dirección",
-							style: "",
-						},
-						{
-							name: "birth",
-							label: "Nacimiento",
-							style: "",
-						},
+						{name: "name", label: "Nombre", style: ""},
+						{name: "email", label: "Email", style: ""},
+						{name: "adress", label: "Dirección", style: ""},
+						{name: "birth", label: "Nacimiento", style: ""},
 					]}
 					api="http://127.0.0.1:8000/api/alumnos"
 				/>

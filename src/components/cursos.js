@@ -1,5 +1,6 @@
 const cursos = [
 	{
+		id: 0,
 		title: "Protección de datos",
 		content:
 			"Este curso abarca los aspectos fundamentales de la protección de datos personales y sus definiciones, así como medidas de protección, destacando su importancia y prevención.",
@@ -91,7 +92,6 @@ const cursos = [
 				],
 			},
 		],
-		progress: 10,
 	},
 	// {
 	// 	title: "Curso Ejemplo 2",

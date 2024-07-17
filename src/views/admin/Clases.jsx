@@ -1,10 +1,83 @@
 import Template from "../../components/Template";
-import {useState} from "react";
-import {arrayClases} from "../../components/data";
+import {useState, useEffect} from "react";
 import {ModalNew} from "../../components/ModalNew";
+import api from "../../components/api";
+import cursos from "../../components/cursos";
 
 export default function Clases() {
 	const [showModalNew, setShowModalNew] = useState(false);
+	const [alumnosConProgreso, setAlumnosConProgreso] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [loading, setLoading] = useState(true); // Nuevo estado para la carga
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
+	async function fetchData() {
+		try {
+			const [responseUsers, responseProgress] = await Promise.all([
+				api.get("/users"),
+				api.get("/progress"),
+			]);
+
+			const usersData = responseUsers.data;
+			const progressData = responseProgress.data;
+
+			const alumnosConProgreso = usersData.map((user) => {
+				const progress = calculateProgress(user.id, progressData);
+				return {
+					...user,
+					progress,
+				};
+			});
+
+			setAlumnosConProgreso(alumnosConProgreso);
+		} catch (error) {
+			console.error(
+				"Error fetching data:",
+				error.response?.data || error.message
+			);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	function calculateProgress(userId, progressData) {
+		const cursosCompletados = [];
+		cursos.forEach((curso) => {
+			const unidadesCurso = curso.units.length;
+			const unidadesCompletadas = progressData.filter(
+				(progress) =>
+					progress.user_id === userId &&
+					progress.course_id === curso.id &&
+					(progress.completed === true || progress.completed === 1)
+			).length;
+
+			if (unidadesCompletadas === unidadesCurso) {
+				cursosCompletados.push(curso.title);
+			}
+		});
+
+		return cursosCompletados;
+	}
+
+	if (loading) {
+		return (
+			<div className="w-screen h-screen flex justify-center items-center">
+				<div className="loader-4">
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+					<div className="loader-square"></div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<>
 			<div>
@@ -12,119 +85,107 @@ export default function Clases() {
 					rol="admin"
 					content={
 						<div>
-							<div>
-								<div className="p-[1rem]">
-									<h1 className="text-[22px] py-[1rem] font-semibold">
-										Lista de Clases
-									</h1>
-									<div className="bg-[#fff] shadow-lg p-[1rem]">
-										<div className="flex justify-between items-center mb-[0.5rem]">
-											<h3>Información de clases</h3>
-											<button
-												id="create-new"
-												type="button"
-												className="bg-[#017cfe] text-[#fff] py-[0.3rem] px-[0.6rem] rounded-md"
-												onClick={() => setShowModalNew(!showModalNew)}
-											>
-												Agregar Clase
-											</button>
-										</div>
-										<hr />
-										<div>
-											<div className="flex justify-center items-center my-[0.5rem]">
-												<label htmlFor="search" className="mr-[1rem]">
-													Buscar:
-												</label>
-												<input
-													className="h-[2.3rem] border border-slate-300 rounded-md px-[1rem] text-[#797675]"
-													id="search"
-													name="search"
-												/>
-											</div>
-											<table className="w-[100%] table-auto">
-												<thead>
-													<tr className="text-left">
-														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															#
-														</th>
-														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															Clase
-														</th>
-														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															Maestro
-														</th>
-														<th className="bg-[#fff] text-[#343b40] h-[3rem]">
-															Alumnos inscritos
-														</th>
-														<th className="bg-[#fff] text-[#000632] h-[3rem] w-[7%]">
-															Acciones
-														</th>
-													</tr>
-												</thead>
-												<tbody>
-													{arrayClases.map((clase) => {
-														return (
-															<tr key={clase.id}>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{clase.id}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{clase.clase}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{clase.maestro ? (
-																		clase.maestro
-																	) : (
-																		<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
-																			Sin asignación
-																		</span>
-																	)}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2]">
-																	{clase.participantes ? (
-																		clase.participantes
-																	) : (
-																		<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
-																			Sin alumnos
-																		</span>
-																	)}
-																</td>
-																<td className="h-[3rem] bg-[#f2f2f2] flex justify-evenly items-center">
-																	<span
-																		data-clase-id="<?= $clase['id'] ?>"
-																		className="edit-new material-symbols-outlined cursor-pointer text-[#FFC300]"
-																	>
-																		edit
-																	</span>
-																	<form action="" method="POST">
-																		<input
-																			type="hidden"
-																			name="action"
-																			value="delete"
-																		/>
-																		<input
-																			type="number"
-																			hidden
-																			value={clase.id}
-																			name="id"
-																		/>
-																		<button
-																			type="submit"
-																			className="bg-[none] border-[none]"
-																		>
-																			<span className="material-symbols-outlined cursor-pointer text-[red]">
-																				delete
-																			</span>
-																		</button>
-																	</form>
-																</td>
-															</tr>
-														);
-													})}
-												</tbody>
-											</table>
-										</div>
+							<div className="p-[1rem]">
+								<h1 className="text-[22px] py-[1rem] font-semibold">
+									Lista de Clases
+								</h1>
+								<div className="bg-[#fff] shadow-lg p-[1rem]">
+									<div className="flex justify-between items-center mb-[0.5rem]">
+										<h3>Información de clases</h3>
+										<button
+											id="create-new"
+											type="button"
+											className="bg-[#017cfe] text-[#fff] py-[0.3rem] px-[0.6rem] rounded-md"
+											onClick={() => setShowModalNew(!showModalNew)}
+										>
+											Agregar Clase
+										</button>
 									</div>
+									<hr />
+									<div className="flex justify-center items-center my-[0.5rem]">
+										<label htmlFor="search" className="mr-[1rem]">
+											Buscar:
+										</label>
+										<input
+											className="h-[2.3rem] border border-slate-300 rounded-md px-[1rem] text-[#797675]"
+											id="search"
+											name="search"
+											value={searchTerm}
+											onChange={(e) => setSearchTerm(e.target.value)}
+										/>
+									</div>
+									<table className="w-[100%] table-auto">
+										<thead>
+											<tr className="text-left">
+												<th className="bg-[#fff] text-[#343b40] h-[3rem]">#</th>
+												<th className="bg-[#fff] text-[#343b40] h-[3rem]">
+													Curso
+												</th>
+												<th className="bg-[#fff] text-[#343b40] h-[3rem]">
+													Alumnos Finalizados
+												</th>
+												<th className="bg-[#fff] text-[#343b40] h-[3rem]">
+													Alumnos en Curso
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											{cursos.map((clase, index) => {
+												const alumnosTerminaron = alumnosConProgreso.filter(
+													(alumno) => alumno.progress.includes(clase.title)
+												);
+												const alumnosEnCurso =
+													alumnosConProgreso.length - alumnosTerminaron.length;
+
+												return (
+													<tr key={clase.id}>
+														<td className="h-[3rem] bg-[#f2f2f2]">
+															{index + 1}
+														</td>
+														<td className="h-[3rem] bg-[#f2f2f2]">
+															{clase.title}
+														</td>
+														<td className="h-[3rem] bg-[#f2f2f2]">
+															{alumnosTerminaron &&
+															alumnosTerminaron.length > 0 ? (
+																alumnosTerminaron.length ===
+																alumnosConProgreso.length ? (
+																	<span className="text-[#fff] text-[12px] bg-[#33a24f] p-[0.2rem] rounded-md">
+																		Todos los alumnos
+																	</span>
+																) : (
+																	<span className="text-center text-[12px] bg-gray-200 p-[0.2rem] rounded-md">
+																		{alumnosTerminaron.length} /{" "}
+																		{alumnosConProgreso.length}
+																	</span>
+																)
+															) : (
+																<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
+																	Sin alumnos
+																</span>
+															)}
+														</td>
+														<td className="h-[3rem] bg-[#f2f2f2]">
+															{alumnosEnCurso === 0 ? (
+																<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
+																	Sin alumnos
+																</span>
+															) : alumnosEnCurso ===
+															  alumnosConProgreso.length ? (
+																<span className="text-[#fff] text-[12px] bg-[#33a24f] p-[0.2rem] rounded-md">
+																	Todos los alumnos
+																</span>
+															) : (
+																<span className="text-center text-[12px] bg-gray-200 p-[0.2rem] rounded-md">
+																	{alumnosEnCurso} / {alumnosConProgreso.length}
+																</span>
+															)}
+														</td>
+													</tr>
+												);
+											})}
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -158,7 +219,6 @@ export default function Clases() {
 							label: "Clase",
 							style: "",
 						},
-
 						{
 							name: "teacher",
 							label: "Maestro",

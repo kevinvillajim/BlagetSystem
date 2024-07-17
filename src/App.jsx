@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./App.css";
 import {ThemeProvider} from "@mui/material/styles";
 import theme from "./components/Color";
@@ -6,6 +7,7 @@ import {
 	Routes,
 	Route,
 	Navigate,
+	Outlet,
 } from "react-router-dom";
 import Home from "./views/Home";
 import Login from "./views/Login";
@@ -32,84 +34,87 @@ const PrivateRoute = ({children}) => {
 	return localStorage.getItem("token") ? children : <Navigate to="/login" />;
 };
 
+const RoleRoute = ({allowedRoles, redirectPath = "/login", children}) => {
+	const user = JSON.parse(localStorage.getItem("user"));
+	const hasAllowedRole = user && allowedRoles.includes(user.role);
+
+	if (!hasAllowedRole) {
+		return <Navigate to={redirectPath} replace />;
+	}
+
+	return children ? children : <Outlet />;
+};
+
 function App() {
 	return (
-		<>
-			{/* <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ThemeProvider> */}
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Routes>
-						<Route path="/home" element={<Home />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/register" element={<Register />} />
-						<Route path="/admin/dashboard" element={<Dashboard />} />
-						<Route path="/admin/maestros" element={<Maestros />} />
-						<Route path="/admin/alumnos" element={<Alumnos />} />
-						<Route path="/admin/clases" element={<Clases />} />
-						<Route path="/admin/usuarios" element={<Usuarios />} />
-						<Route path="/admin/tareas" element={<Tareas />} />
-						<Route path="/admin/finanzas" element={<Finanzas />} />
-						<Route path="/admin/certificados" element={<Certificados />} />
-						<Route
-							path="/estudiante/cursos/curso1/unidad1"
-							element={<Unidad1 />}
-						/>
-						<Route
-							path="/estudiante/cursos/curso1/unidad2"
-							element={<Unidad2 />}
-						/>
-						<Route
-							path="/estudiante/cursos/curso1/unidad3"
-							element={<Unidad3 />}
-						/>
-
-						<Route
-							path="/estudiante/dashboard"
-							element={
-								<PrivateRoute>
-									<DashboardEstudiante />
-								</PrivateRoute>
-							}
-						/>
-						<Route
-							path="/estudiante/certificados"
-							element={
-								<PrivateRoute>
-									<CertificadosEstudiante />
-								</PrivateRoute>
-							}
-						/>
-						<Route
-							path="/estudiante/cursos/curso1/certificado"
-							element={<Certificado />}
-						/>
-						<Route
-							path="/estudiante/cursos/curso1"
-							element={<CursosRedirect curso={0} />}
-						/>
-						<Route
-							path="/profile"
-							element={
-								<PrivateRoute>
-									<Perfil />
-								</PrivateRoute>
-							}
-						/>
-						<Route
-							path="/edit-profile"
-							element={
-								<PrivateRoute>
-									<EditarPerfil />
-								</PrivateRoute>
-							}
-						/>
-						<Route path="/" element={<Home />} />
-					</Routes>
-				</Router>
-			</ThemeProvider>
-		</>
+		<ThemeProvider theme={theme}>
+			<Router>
+				<Routes>
+					<Route path="/home" element={<Home />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route
+						path="/profile"
+						element={
+							<PrivateRoute>
+								<Perfil />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/edit-profile"
+						element={
+							<PrivateRoute>
+								<EditarPerfil />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/admin/*"
+						element={
+							<RoleRoute allowedRoles={[1]} redirectPath="/login">
+								<Routes>
+									<Route path="dashboard" element={<Dashboard />} />
+									<Route path="maestros" element={<Maestros />} />
+									<Route path="alumnos" element={<Alumnos />} />
+									<Route path="clases" element={<Clases />} />
+									<Route path="usuarios" element={<Usuarios />} />
+									<Route path="tareas" element={<Tareas />} />
+									<Route path="finanzas" element={<Finanzas />} />
+									<Route path="certificados" element={<Certificados />} />
+								</Routes>
+							</RoleRoute>
+						}
+					/>
+					<Route
+						path="/estudiante/*"
+						element={
+							<RoleRoute allowedRoles={[2]} redirectPath="/login">
+								<Routes>
+									<Route path="cursos/curso1/unidad1" element={<Unidad1 />} />
+									<Route path="cursos/curso1/unidad2" element={<Unidad2 />} />
+									<Route path="cursos/curso1/unidad3" element={<Unidad3 />} />
+									<Route path="dashboard" element={<DashboardEstudiante />} />
+									<Route
+										path="certificados"
+										element={<CertificadosEstudiante />}
+									/>
+									<Route
+										path="cursos/curso1/certificado"
+										element={<Certificado />}
+									/>
+									<Route
+										path="cursos/curso1"
+										element={<CursosRedirect curso={0} />}
+									/>
+								</Routes>
+							</RoleRoute>
+						}
+					/>
+					<Route path="/" element={<Home />} />
+				</Routes>
+			</Router>
+		</ThemeProvider>
 	);
 }
 
