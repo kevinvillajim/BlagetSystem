@@ -34,8 +34,22 @@ export default function Register() {
 				password_confirmation,
 			});
 			localStorage.setItem("token", response.data.access_token);
-			fetchUser();
-			navigate("/estudiante/dashboard");
+			await fetchUser();
+			setTimeout(() => {
+				const user = JSON.parse(localStorage.getItem("user"));
+				if (user) {
+					if (user.role === 1) {
+						navigate("/admin/dashboard");
+					} else if (user.role === 2) {
+						navigate("/estudiante/dashboard");
+					}
+				} else {
+					console.error("User data not found in localStorage.");
+				}
+			}, 1000);
+			setError(null);
+			// Limpiar el estado de error después de un registro exitoso
+			setError(null);
 		} catch (error) {
 			if (
 				error.response &&
@@ -45,7 +59,6 @@ export default function Register() {
 				setError(error.response.data.message);
 			} else {
 				setError("Error desconocido al registrar usuario");
-				console.log(error);
 			}
 		}
 	};

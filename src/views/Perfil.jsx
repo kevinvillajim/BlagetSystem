@@ -19,7 +19,10 @@ const Perfil = () => {
 			<header
 				className={`w-[100%] h-[5rem] flex justify-between items-center px-[2rem] shadow-sm`}
 			>
-				<a href="/estudiante/dashboard">
+				<a
+					href={user.role === 1 ? "/admin/dashboard" : "/estudiante/dashboard"}
+					className="animatedBig"
+				>
 					<div
 						id="menu-principal"
 						className="flex cursor-pointer items-center"
@@ -32,7 +35,7 @@ const Perfil = () => {
 					</div>
 				</a>
 				<div
-					className="flex cursor-pointer"
+					className="flex cursor-pointer animatedBig"
 					id="show-modal"
 					onClick={handleModalClick}
 				>
@@ -83,7 +86,7 @@ const Perfil = () => {
 							</div>
 							<a
 								href="/edit-profile"
-								className="px-4 py-1 border rounded-md border-gray-300 dark:text-gray-400"
+								className="px-4 py-1 border rounded-md border-gray-300 dark:text-gray-400 animatedBg2"
 							>
 								Edit
 							</a>

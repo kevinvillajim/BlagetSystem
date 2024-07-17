@@ -31,12 +31,20 @@ import Perfil from "./views/Perfil";
 import EditarPerfil from "./views/EditarPerfil";
 
 const PrivateRoute = ({children}) => {
-	return localStorage.getItem("token") ? children : <Navigate to="/login" />;
+	const token = localStorage.getItem("token");
+	const user = JSON.parse(localStorage.getItem("user"));
+
+	if (!token || !user?.active) {
+		return <Navigate to="/login" />;
+	}
+
+	return children;
 };
 
 const RoleRoute = ({allowedRoles, redirectPath = "/login", children}) => {
 	const user = JSON.parse(localStorage.getItem("user"));
-	const hasAllowedRole = user && allowedRoles.includes(user.role);
+	const hasAllowedRole =
+		user && allowedRoles.includes(user.role) && user.active;
 
 	if (!hasAllowedRole) {
 		return <Navigate to={redirectPath} replace />;

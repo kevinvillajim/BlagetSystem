@@ -597,3 +597,29 @@ input:focus {
 	box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4),
 		0 1px 1px rgba(255, 255, 255, 0.2);
 }
+
+.animatedBig,
+.animatedBg,
+.animatedBg2 {
+	transition: transform 0.2s ease-in-out;
+}
+
+.animatedBig:hover {
+	transform: scale(1.03);
+}
+
+.animatedBg:hover {
+	background-color: rgb(214, 214, 214);
+}
+
+.animatedBg2:hover {
+	background-color: rgb(255, 255, 255);
+}
+
+.animatedBg3:hover {
+	background-color: rgb(138, 138, 138);
+}
+
+.animatedBgButtons:hover {
+	background-color: rgb(48, 80, 183);
+}

@@ -78,7 +78,7 @@ const ProfileEdit = () => {
 			<header
 				className={`w-[100%] h-[4rem] flex justify-between items-center px-[2rem] shadow-sm`}
 			>
-				<a href="profile">
+				<a href="profile" className="animatedBig">
 					<div
 						id="menu-principal"
 						className="flex cursor-pointer items-center"
@@ -91,7 +91,7 @@ const ProfileEdit = () => {
 					</div>
 				</a>
 				<div
-					className="flex cursor-pointer"
+					className="flex cursor-pointer animatedBig"
 					id="show-modal"
 					onClick={handleModalClick}
 				>
@@ -143,7 +143,7 @@ const ProfileEdit = () => {
 								/>
 								<label
 									htmlFor="upload-photo"
-									className="ml-4 cursor-pointer text-blue-500"
+									className="ml-4 cursor-pointer text-blue-500 animatedBig"
 								>
 									Cambiar
 								</label>
@@ -225,7 +225,7 @@ const ProfileEdit = () => {
 						<div className="flex justify-end">
 							<button
 								type="submit"
-								className="bg-blue-500 text-white py-2 px-4 rounded-md"
+								className="bg-blue-500 text-white py-2 px-4 rounded-md animatedBgButtons"
 							>
 								Guardar
 							</button>

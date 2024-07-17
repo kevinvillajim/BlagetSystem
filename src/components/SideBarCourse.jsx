@@ -27,7 +27,7 @@ export default function SideBarCourse({cursos, curso}) {
 			<div className="h-screen bg-[#737272] overflow-auto">
 				<header className="flex justify-center">
 					<div
-						className={`bg-[#353535] py-[1rem] px-[1.5rem] flex gap-2 items-center w-[100%] flex justify-center cursor-pointer ${
+						className={`bg-[#353535] py-[1rem] px-[1.5rem] flex gap-2 items-center w-[100%] flex justify-center cursor-pointer animatedBig ${
 							toggle ? "border-b-4 border-[#22c55e]" : ""
 						}`}
 						onClick={() => {
@@ -40,7 +40,7 @@ export default function SideBarCourse({cursos, curso}) {
 						<span className="text-[white]">Contenido del Curso</span>
 					</div>
 					<div
-						className={`bg-[#353535] py-[1rem] px-[1.5rem] flex gap-2 items-center w-[100%] flex justify-center cursor-pointer ${
+						className={`bg-[#353535] py-[1rem] px-[1.5rem] flex gap-2 items-center w-[100%] flex justify-center cursor-pointer animatedBig ${
 							!toggle ? "border-b-4 border-[#22c55e]" : ""
 						}`}
 						onClick={() => {

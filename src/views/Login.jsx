@@ -33,14 +33,12 @@ export default function Login() {
 			const response = await api.get("/user-progress");
 			const progressData = response.data;
 
-			// Limpiar localStorage de las entradas relacionadas con los cursos
 			Object.keys(localStorage).forEach((key) => {
 				if (key.startsWith("Course")) {
 					localStorage.removeItem(key);
 				}
 			});
 
-			// Procesar los datos de progreso
 			const courseProgress = {};
 			const completedUnits = {};
 
@@ -189,9 +187,6 @@ export default function Login() {
 									className="text-[12px] pl-[5px] text-[#5C80DB]"
 								>
 									<u>Registrate</u>
-								</a>
-								<a href="/home" className="text-[12px] pr-[5px] text-[#5C80DB]">
-									<u>Olvidaste tu contraseña?</u>
 								</a>
 							</div>
 							<button

@@ -1,12 +1,11 @@
 import Template from "../../components/Template";
-import {ModalNew} from "../../components/ModalNew";
 import {useState, useEffect} from "react";
 import api from "../../components/api";
 import cursos from "../../components/cursos";
 
 export default function Alumnos() {
-	const [showModalNew, setShowModalNew] = useState(false);
 	const [alumnos, setAlumnos] = useState([]);
+	const [alumnosFiltrados, setAlumnosFiltrados] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [loading, setLoading] = useState(true); // Nuevo estado para la carga
 
@@ -34,6 +33,7 @@ export default function Alumnos() {
 			});
 
 			setAlumnos(alumnosConProgreso);
+			setAlumnosFiltrados(alumnosConProgreso);
 		} catch (error) {
 			console.error(
 				"Error fetching Alumnos data:",
@@ -65,8 +65,46 @@ export default function Alumnos() {
 			}
 		});
 
-		return `${cursosCompletados}/${cursosTotales}`;
+		return cursosCompletados > 0 ? (
+			cursosCompletados === cursosTotales ? (
+				<span className="text-[#fff] text-[12px] bg-[#33a24f] p-[0.2rem] rounded-md">
+					Todos los cursos
+				</span>
+			) : (
+				<span className="text-center text-[12px] bg-gray-200 p-[0.2rem] rounded-md">
+					{cursosCompletados} / {cursosTotales}
+				</span>
+			)
+		) : (
+			<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
+				Ningún curso
+			</span>
+		);
 	}
+
+	useEffect(() => {
+		if (searchTerm.trim() === "") {
+			setAlumnosFiltrados(alumnos);
+		} else {
+			const filteredAlumnos = alumnos.filter(
+				(alumno) =>
+					alumno.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					alumno.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					alumno.ci.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+			setAlumnosFiltrados(filteredAlumnos);
+		}
+	}, [searchTerm, alumnos]);
+
+	const handleDeleteUser = async (userId) => {
+		try {
+			await api.delete(`/users/${userId}`);
+			setAlumnos(alumnos.filter((alumno) => alumno.id !== userId));
+			console.log(`Usuario con ID ${userId} eliminado.`);
+		} catch (error) {
+			console.error("Error deleting user:", error);
+		}
+	};
 
 	// Componente de carga
 	if (loading) {
@@ -98,17 +136,6 @@ export default function Alumnos() {
 										Lista de Alumnos
 									</h1>
 									<div className="bg-[#fff] shadow-lg p-[1rem]">
-										<div className="flex justify-between items-center mb-[0.5rem]">
-											<h3>Información de Alumnos</h3>
-											<button
-												id="create-new"
-												type="button"
-												className="bg-[#017cfe] text-[#fff] py-[0.3rem] px-[0.6rem] rounded-md"
-												onClick={() => setShowModalNew(!showModalNew)}
-											>
-												Agregar Alumno
-											</button>
-										</div>
 										<hr />
 										<div>
 											<div className="flex justify-center items-center my-[0.5rem]">
@@ -150,7 +177,7 @@ export default function Alumnos() {
 													</tr>
 												</thead>
 												<tbody>
-													{alumnos.map((alumno) => (
+													{alumnosFiltrados.map((alumno) => (
 														<tr key={alumno.id}>
 															<td className="h-[3rem] bg-[#f2f2f2]">
 																{alumno.id}
@@ -171,27 +198,25 @@ export default function Alumnos() {
 																{alumno.progress}
 															</td>
 															<td className="h-[3rem] bg-[#f2f2f2] flex justify-evenly items-center">
-																<form action="" method="POST">
-																	<input
-																		type="hidden"
-																		name="action"
-																		value="delete"
-																	/>
-																	<input
-																		type="number"
-																		hidden
-																		defaultValue={alumno.id}
-																		name="id"
-																	/>
-																	<button
-																		type="submit"
-																		className="bg-[none] border-[none]"
-																	>
-																		<span className="material-symbols-outlined cursor-pointer text-[red]">
-																			delete
-																		</span>
-																	</button>
-																</form>
+																<input
+																	type="hidden"
+																	name="action"
+																	value="delete"
+																/>
+																<input
+																	type="number"
+																	hidden
+																	defaultValue={alumno.id}
+																	name="id"
+																/>
+																<button
+																	onClick={() => handleDeleteUser(alumno.id)}
+																	className="w-[40px] h-[40px] p-2 rounded-full animatedBg2"
+																>
+																	<span className="material-symbols-outlined cursor-pointer text-[red]">
+																		delete
+																	</span>
+																</button>
 															</td>
 														</tr>
 													))}
@@ -205,37 +230,6 @@ export default function Alumnos() {
 					}
 				/>
 			</div>
-			{showModalNew && (
-				<ModalNew
-					setShowModalNew={setShowModalNew}
-					formObject={[
-						{
-							name: "id",
-							label: "",
-							style: "hidden",
-							value: localStorage.getItem("id"),
-						},
-						{name: "ci", label: "CI", style: ""},
-						{
-							name: "usuario_creacion",
-							label: "",
-							style: "hidden",
-							value: localStorage.getItem("id"),
-						},
-						{
-							name: "usuario_modificacion",
-							label: "",
-							style: "hidden",
-							value: localStorage.getItem("id"),
-						},
-						{name: "name", label: "Nombre", style: ""},
-						{name: "email", label: "Email", style: ""},
-						{name: "adress", label: "Dirección", style: ""},
-						{name: "birth", label: "Nacimiento", style: ""},
-					]}
-					api="http://127.0.0.1:8000/api/alumnos"
-				/>
-			)}
 		</>
 	);
 }

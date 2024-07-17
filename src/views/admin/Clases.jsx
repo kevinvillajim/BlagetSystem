@@ -8,6 +8,7 @@ export default function Clases() {
 	const [showModalNew, setShowModalNew] = useState(false);
 	const [alumnosConProgreso, setAlumnosConProgreso] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [filteredCursos, setFilteredCursos] = useState(cursos);
 	const [loading, setLoading] = useState(true); // Nuevo estado para la carga
 
 	useEffect(() => {
@@ -62,6 +63,17 @@ export default function Clases() {
 		return cursosCompletados;
 	}
 
+	const handleSearch = (e) => {
+		const searchTerm = e.target.value;
+		setSearchTerm(searchTerm);
+
+		// Filtrar cursos basado en el término de búsqueda
+		const filteredCursos = cursos.filter((curso) =>
+			curso.title.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		setFilteredCursos(filteredCursos);
+	};
+
 	if (loading) {
 		return (
 			<div className="w-screen h-screen flex justify-center items-center">
@@ -90,17 +102,6 @@ export default function Clases() {
 									Lista de Clases
 								</h1>
 								<div className="bg-[#fff] shadow-lg p-[1rem]">
-									<div className="flex justify-between items-center mb-[0.5rem]">
-										<h3>Información de clases</h3>
-										<button
-											id="create-new"
-											type="button"
-											className="bg-[#017cfe] text-[#fff] py-[0.3rem] px-[0.6rem] rounded-md"
-											onClick={() => setShowModalNew(!showModalNew)}
-										>
-											Agregar Clase
-										</button>
-									</div>
 									<hr />
 									<div className="flex justify-center items-center my-[0.5rem]">
 										<label htmlFor="search" className="mr-[1rem]">
@@ -111,7 +112,7 @@ export default function Clases() {
 											id="search"
 											name="search"
 											value={searchTerm}
-											onChange={(e) => setSearchTerm(e.target.value)}
+											onChange={handleSearch}
 										/>
 									</div>
 									<table className="w-[100%] table-auto">
@@ -130,7 +131,7 @@ export default function Clases() {
 											</tr>
 										</thead>
 										<tbody>
-											{cursos.map((clase, index) => {
+											{filteredCursos.map((clase, index) => {
 												const alumnosTerminaron = alumnosConProgreso.filter(
 													(alumno) => alumno.progress.includes(clase.title)
 												);
