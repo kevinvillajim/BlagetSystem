@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Header({
+function HeaderIn({
 	showMenu,
 	setShowMenu,
 	setShowModal,
@@ -74,9 +74,9 @@ function Header({
 	);
 }
 
-Header.propTypes = {
+HeaderIn.propTypes = {
 	setShowMenu: PropTypes.func,
-	showMenu: PropTypes.string,
+	showMenu: PropTypes.bool,
 	setShowModal: PropTypes.func,
 	name: PropTypes.string,
 	avatar: PropTypes.string,
@@ -84,4 +84,4 @@ Header.propTypes = {
 	textColor: PropTypes.string,
 };
 
-export default Header;
+export default HeaderIn;

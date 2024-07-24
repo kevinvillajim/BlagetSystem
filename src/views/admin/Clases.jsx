@@ -25,7 +25,9 @@ export default function Clases() {
 			const usersData = responseUsers.data;
 			const progressData = responseProgress.data;
 
-			const alumnosConProgreso = usersData.map((user) => {
+			const nonAdminUsers = usersData.filter((user) => user.role !== 1);
+
+			const alumnosConProgreso = nonAdminUsers.map((user) => {
 				const progress = calculateProgress(user.id, progressData);
 				return {
 					...user,

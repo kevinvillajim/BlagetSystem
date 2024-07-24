@@ -4,7 +4,6 @@ import cursos from "../../components/cursos";
 
 export default function DashboardEstudiante() {
 	const user = JSON.parse(localStorage.getItem("user"));
-	
 
 	if (!user) {
 		setTimeout(() => {

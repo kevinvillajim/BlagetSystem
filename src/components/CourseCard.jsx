@@ -22,9 +22,6 @@ function CourseCard({title, img, description, progress, link, course}) {
 							<span className="font-thin text-sm">Curso | Online</span>
 						</div>
 						<div>
-							{/* <IconButton aria-label="delete">
-                <MoreVertIcon color="success" />
-              </IconButton> */}
 							<Options course={course} />
 						</div>
 					</div>

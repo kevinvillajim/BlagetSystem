@@ -4,7 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import MoreVertIcon from "@mui/icons-material/MoreVert"; // Importa el icono necesario
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import api from "./api";
 
 const StyledMenu = styled((props) => (
 	<Menu
@@ -59,13 +60,23 @@ export default function Options({course}) {
 		setAnchorEl(null);
 	};
 
-	const resetProgress = (curso) => {
+	const resetProgress = async (curso) => {
+		const user = JSON.parse(localStorage.getItem("user"));
 		Object.keys(localStorage).forEach((key) => {
 			if (key.includes(`Course${curso}`)) {
 				localStorage.removeItem(key);
 			}
 		});
 		localStorage.removeItem(`Course${curso}initialOpenIndex`);
+		try {
+			await api.delete(`/progress/${user.id}/${curso}`);
+			console.log(
+				`El Progreso del Usuario ${user.id} del curso ${curso}  eliminado.`
+			);
+		} catch (error) {
+			console.error("Error al eliminar progreso:", error);
+		}
+		window.location.reload();
 	};
 
 	return (
@@ -91,8 +102,9 @@ export default function Options({course}) {
 				<MenuItem
 					onClick={() => {
 						resetProgress(course);
+
 						handleClose();
-						window.location.reload();
+						// window.location.reload();
 					}}
 					disableRipple
 				>

@@ -84,9 +84,6 @@ export default function Login() {
 					const finishDateKey = `Course${courseId}finishedDate`;
 					const finishDate = courseProgress[courseId];
 					const formattedDate = finishDate.toLocaleDateString("en-GB"); // Formato DD/MM/YYYY
-					console.log(
-						`Saving finish date for Course ${courseId}: ${formattedDate}`
-					);
 					localStorage.setItem(finishDateKey, formattedDate);
 				}
 			});
@@ -108,8 +105,8 @@ export default function Login() {
 			if (user.role === 1) {
 				navigate("/admin/dashboard");
 			} else {
-				navigate("/estudiante/dashboard");
 				await fetchProgress();
+				navigate("/estudiante/dashboard");
 			}
 		} catch (error) {
 			if (

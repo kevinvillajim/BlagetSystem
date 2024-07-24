@@ -23,8 +23,10 @@ export default function Alumnos() {
 			const alumnosData = responseAlumnos.data;
 			const progressData = responseProgress.data;
 
+			const nonAdminUsers = alumnosData.filter((user) => user.role !== 1);
+
 			// Mapear los alumnos con su progreso
-			const alumnosConProgreso = alumnosData.map((alumno) => {
+			const alumnosConProgreso = nonAdminUsers.map((alumno) => {
 				const progress = calculateProgress(alumno.id, progressData);
 				return {
 					...alumno,
