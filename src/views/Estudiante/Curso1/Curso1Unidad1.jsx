@@ -1,11 +1,11 @@
 import {useRef} from "react";
-import Cursos from "./Cursos.jsx";
-import Banner from "../../components/Banner.jsx";
-import Title from "../../components/Title.jsx";
-import Paragraph from "../../components/Paragraph.jsx";
-import Image from "../../components/Image.jsx";
-import Quiz from "../../components/Quiz.jsx";
-import ScrollProgress from "../../components/ScrollProgress.jsx";
+import Banner from "../../../components/Banner.jsx";
+import Title from "../../../components/Title.jsx";
+import Paragraph from "../../../components/Paragraph.jsx";
+import Image from "../../../components/Image.jsx";
+import Quiz from "../../../components/Quiz.jsx";
+import Cursos from "../Cursos.jsx";
+import ScrollProgress from "../../../components/ScrollProgress.jsx";
 
 export default function Unidad1() {
 	const scrollContainerRef = useRef(null);
@@ -23,7 +23,7 @@ export default function Unidad1() {
 							course={curso}
 						/>
 						<Banner
-							img="/banner1.jpg"
+							img="/c1Banner1.jpg"
 							title="Unidad 1: Definiciones Importantes"
 						/>
 						<div id="modulo1">

@@ -17,7 +17,7 @@ function Template({content, rol}) {
 		<>
 			<div
 				className={
-					showMenu ? "grid grid-cols-1 md:grid-cols-8 relative" : "flex"
+					showMenu ? "grid grid-cols-2 md:grid-cols-8 relative" : "flex"
 				}
 			>
 				<div

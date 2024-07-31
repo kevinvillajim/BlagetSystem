@@ -19,11 +19,15 @@ import Clases from "./views/admin/Clases";
 import Usuarios from "./views/admin/Usuarios";
 import Tareas from "./views/admin/Tareas";
 import Finanzas from "./views/admin/Finanzas";
-import Unidad1 from "./views/Estudiante/Unidad1";
-import Unidad2 from "./views/Estudiante/Unidad2";
-import Unidad3 from "./views/Estudiante/Unidad3";
+import Curso1Unidad1 from "./views/Estudiante/Curso1/Curso1Unidad1";
+import Curso1Unidad2 from "./views/Estudiante/Curso1/Curso1Unidad2";
+import Curso1Unidad3 from "./views/Estudiante/Curso1/Curso1Unidad3";
+import Curso2Unidad1 from "./views/Estudiante/Curso2/Curso2Unidad1";
+import Curso2Unidad2 from "./views/Estudiante/Curso2/Curso2Unidad2";
+import Curso2Unidad3 from "./views/Estudiante/Curso2/Curso2Unidad3";
 import CursosRedirect from "./views/Estudiante/CursosRedirect";
-import Certificado from "./views/Estudiante/Certificado";
+import Curso1Certificado from "./views/Estudiante/Curso1/Curso1Certificado";
+import Curso2Certificado from "./views/Estudiante/Curso2/Curso2Certificado";
 import DashboardEstudiante from "./views/Estudiante/DashboardEstudiante";
 import Certificados from "./views/admin/Certificados";
 import CertificadosEstudiante from "./views/Estudiante/CertificadosEstudiante";
@@ -99,9 +103,30 @@ function App() {
 						element={
 							<RoleRoute allowedRoles={[2]} redirectPath="/login">
 								<Routes>
-									<Route path="cursos/curso1/unidad1" element={<Unidad1 />} />
-									<Route path="cursos/curso1/unidad2" element={<Unidad2 />} />
-									<Route path="cursos/curso1/unidad3" element={<Unidad3 />} />
+									<Route
+										path="cursos/curso1/unidad1"
+										element={<Curso1Unidad1 />}
+									/>
+									<Route
+										path="cursos/curso1/unidad2"
+										element={<Curso1Unidad2 />}
+									/>
+									<Route
+										path="cursos/curso1/unidad3"
+										element={<Curso1Unidad3 />}
+									/>
+									<Route
+										path="cursos/curso2/unidad1"
+										element={<Curso2Unidad1 />}
+									/>
+									<Route
+										path="cursos/curso2/unidad2"
+										element={<Curso2Unidad2 />}
+									/>
+									<Route
+										path="cursos/curso2/unidad3"
+										element={<Curso2Unidad3 />}
+									/>
 									<Route path="dashboard" element={<DashboardEstudiante />} />
 									<Route
 										path="certificados"
@@ -109,11 +134,19 @@ function App() {
 									/>
 									<Route
 										path="cursos/curso1/certificado"
-										element={<Certificado />}
+										element={<Curso1Certificado />}
+									/>
+									<Route
+										path="cursos/curso2/certificado"
+										element={<Curso2Certificado />}
 									/>
 									<Route
 										path="cursos/curso1"
 										element={<CursosRedirect curso={0} />}
+									/>
+									<Route
+										path="cursos/curso2"
+										element={<CursosRedirect curso={1} />}
 									/>
 								</Routes>
 							</RoleRoute>

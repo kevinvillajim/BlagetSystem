@@ -30,7 +30,7 @@ export default function DashboardEstudiante() {
 				<Template
 					rol="Estudiante"
 					content={
-						<div className="grid grid-cols-4 gap-5">
+						<div className="flex flex-col md:grid md:grid-cols-4 gap-5">
 							{cursos.map((curso, cursoIndex) => {
 								let totalSum = curso.units.reduce((accumulator, unit) => {
 									const unitProgress = localStorage.getItem(
@@ -51,7 +51,7 @@ export default function DashboardEstudiante() {
 										description={curso.content}
 										progress={average}
 										link={curso.link}
-										course={0}
+										course={cursoIndex}
 									/>
 								);
 							})}

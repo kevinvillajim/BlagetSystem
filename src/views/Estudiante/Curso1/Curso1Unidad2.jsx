@@ -1,12 +1,12 @@
 import {useRef} from "react";
-import Cursos from "./Cursos.jsx";
-import Banner from "../../components/Banner.jsx";
-import Title from "../../components/Title.jsx";
-import Paragraph from "../../components/Paragraph.jsx";
-import List from "../../components/List.jsx";
-import Image from "../../components/Image.jsx";
-import Quiz from "../../components/Quiz.jsx";
-import ScrollProgress from "../../components/ScrollProgress.jsx";
+import Banner from "../../../components/Banner.jsx";
+import Title from "../../../components/Title.jsx";
+import Paragraph from "../../../components/Paragraph.jsx";
+import Image from "../../../components/Image.jsx";
+import List from "../../../components/List.jsx";
+import Quiz from "../../../components/Quiz.jsx";
+import Cursos from "../Cursos.jsx";
+import ScrollProgress from "../../../components/ScrollProgress.jsx";
 
 export default function Unidad2() {
 	const scrollContainerRef = useRef(null);
@@ -24,7 +24,7 @@ export default function Unidad2() {
 							course={curso}
 						/>
 						<Banner
-							img="/banner2.webp"
+							img="/c1Banner2.webp"
 							title="Unidad 2: Integrantes del sistema de protección de datos personales"
 						/>
 						<div id="modulo1">

@@ -1,18 +1,19 @@
 import {useRef} from "react";
-import Banner from "../../components/Banner.jsx";
-import Title from "../../components/Title.jsx";
-import Paragraph from "../../components/Paragraph.jsx";
-import Image from "../../components/Image.jsx";
-import List from "../../components/List.jsx";
-import SubTitle from "../../components/SubTitle.jsx";
-import Tabs from "../../components/Tabs.jsx";
-import Quiz from "../../components/Quiz.jsx";
-import Cursos from "./Cursos.jsx";
-import ScrollProgress from "../../components/ScrollProgress.jsx";
+import Banner from "../../../components/Banner.jsx";
+import Title from "../../../components/Title.jsx";
+import Paragraph from "../../../components/Paragraph.jsx";
+import Image from "../../../components/Image.jsx";
+import List from "../../../components/List.jsx";
+import SubTitle from "../../../components/SubTitle.jsx";
+import Tabs from "../../../components/Tabs.jsx";
+import Quiz from "../../../components/Quiz.jsx";
+import Cursos from "../Cursos.jsx";
+import ScrollProgress from "../../../components/ScrollProgress.jsx";
+import cursos from "../../../components/cursos.js";
 
 export default function Unidad3() {
 	const scrollContainerRef = useRef(null);
-	const curso = 0;
+	const curso = 1;
 	const unidad = 3;
 	return (
 		<>
@@ -26,11 +27,13 @@ export default function Unidad3() {
 							course={curso}
 						/>
 						<Banner
-							img="/banner3.jpg"
-							title="Unidad 3: Derechos del interesado"
+							img="/c2Banner3.jpg"
+							title={cursos[curso].units[unidad - 1].unit}
 						/>
 						<div id="modulo1">
-							<Title title="3.1 Derechos" />
+							<Title
+								title={cursos[curso].units[unidad - 1].modules[0].modulo}
+							/>
 						</div>
 						<Paragraph p="Los datos personales y el control sobre ellos le pertenecen a cada Interesado. Por lo cual el interesado, podrá ejercer los derechos, que se indican a continuación:" />
 						<List
@@ -61,7 +64,9 @@ export default function Unidad3() {
 						/>
 						<Image img="/lopdp.jpg" />
 						<div id="modulo2">
-							<Title title="3.2 Amenazas Actuales" />
+							<Title
+								title={cursos[curso].units[unidad - 1].modules[1].modulo}
+							/>
 						</div>
 						<SubTitle subtitle="Ahora, aprendamos a proteger nuestros datos identificando amenazas actuales." />
 						<Image img="/advertencia.webp" />
@@ -96,7 +101,9 @@ export default function Unidad3() {
 							]}
 						/>
 						<div id="modulo3">
-							<Title title="3.3 ¿Que hacer para no ser víctimas?" />
+							<Title
+								title={cursos[curso].units[unidad - 1].modules[2].modulo}
+							/>
 						</div>
 						<List
 							li={[

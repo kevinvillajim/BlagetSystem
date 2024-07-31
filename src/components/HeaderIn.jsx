@@ -36,7 +36,9 @@ function HeaderIn({
 						{showMenu ? "menu_open" : "menu"}
 					</span>
 					<h2
-						className={`ml-4 ${textColor ? `text-${textColor}` : "text-white"}`}
+						className={`hidden md:inline ml-4 ${
+							textColor ? `text-${textColor}` : "text-white"
+						}`}
 					>
 						Home
 					</h2>
@@ -51,7 +53,7 @@ function HeaderIn({
 						alt="avatar1"
 						className="w-10 h-10 rounded-full object-cover"
 					/>
-					<div className="flex items-center">
+					<div className="hidden md:flex items-center">
 						<h2
 							className={`ml-4 ${
 								textColor ? `text-${textColor}` : "text-white"
