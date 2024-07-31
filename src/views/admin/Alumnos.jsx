@@ -1,5 +1,6 @@
 import Template from "../../components/Template";
 import {useState, useEffect} from "react";
+import {saveAs} from "file-saver";
 import api from "../../components/api";
 import cursos from "../../components/cursos";
 
@@ -12,9 +13,10 @@ export default function Alumnos() {
 	useEffect(() => {
 		fetchAlumnos();
 	}, []);
+
 	async function fetchAlumnos() {
 		try {
-			// Realiza las dos solicitudes de forma concurrente
+			// Realizar las dos solicitudes de forma concurrente
 			const [responseAlumnos, responseProgress] = await Promise.all([
 				api.get("/users"),
 				api.get("/progress"),
@@ -42,7 +44,7 @@ export default function Alumnos() {
 				error.response?.data || error.message
 			);
 		} finally {
-			setLoading(false); // Cambiar el estado de carga a falso después de obtener los datos
+			setLoading(false);
 		}
 	}
 
@@ -54,34 +56,37 @@ export default function Alumnos() {
 			const unidadesCurso = curso.units.length;
 
 			const unidadesCompletadas = progressData.filter((progress) => {
-				const matchesUser = progress.user_id === userId;
-				const matchesCourse = progress.course_id === curso.id;
-				const isCompleted =
-					progress.completed === true || progress.completed === 1;
+				return (
+					progress.user_id === userId &&
+					progress.course_id === curso.id &&
+					(progress.completed === true || progress.completed === 1)
+				);
+			});
 
-				return matchesUser && matchesCourse && isCompleted;
-			}).length;
-
-			if (unidadesCompletadas === unidadesCurso) {
+			if (unidadesCompletadas.length === unidadesCurso) {
 				cursosCompletados++;
 			}
 		});
 
-		return cursosCompletados > 0 ? (
-			cursosCompletados === cursosTotales ? (
+		if (cursosCompletados === cursosTotales) {
+			return (
 				<span className="text-[#fff] text-[12px] bg-[#33a24f] p-[0.2rem] rounded-md">
 					Todos los cursos
 				</span>
-			) : (
+			);
+		} else if (cursosCompletados > 0) {
+			return (
 				<span className="text-center text-[12px] bg-gray-200 p-[0.2rem] rounded-md">
 					{cursosCompletados} / {cursosTotales}
 				</span>
-			)
-		) : (
-			<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
-				Ningún curso
-			</span>
-		);
+			);
+		} else {
+			return (
+				<span className="text-[12px] bg-[#cba51a] p-[0.2rem] rounded-md">
+					Ningún curso
+				</span>
+			);
+		}
 	}
 
 	useEffect(() => {
@@ -105,6 +110,24 @@ export default function Alumnos() {
 			console.log(`Usuario con ID ${userId} eliminado.`);
 		} catch (error) {
 			console.error("Error deleting user:", error);
+		}
+	};
+
+	const handleSendReminders = () => {
+		try {
+			const emails = alumnos
+				.filter(
+					(alumno) => alumno.progress.props.children !== "Todos los cursos"
+				)
+				.map((alumno) => `${alumno.email},`)
+				.join("\n\n");
+
+			const blob = new Blob([emails], {type: "text/plain;charset=utf-8"});
+			saveAs(blob, "recordatorios.txt");
+			alert("Archivo de recordatorios generado con éxito.");
+		} catch (error) {
+			console.error("Error generating reminders file:", error);
+			alert("Hubo un error al generar el archivo de recordatorios.");
 		}
 	};
 
@@ -151,6 +174,14 @@ export default function Alumnos() {
 													value={searchTerm}
 													onChange={(e) => setSearchTerm(e.target.value)}
 												/>
+											</div>
+											<div className="flex justify-end mb-[1rem]">
+												<button
+													onClick={handleSendReminders}
+													className="bg-blue-500 text-white px-[1rem] py-[0.5rem] rounded-md"
+												>
+													Generar Emails para Recordatorios
+												</button>
 											</div>
 											<table className="w-[100%] table-auto">
 												<thead>

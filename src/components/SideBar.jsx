@@ -34,7 +34,7 @@ function SideBar({logo, avatar, enterprise, title, name, options, rol}) {
 						<div className="w-[70px] h-[70px] flex justify-center items-center rounded-full overflow-hidden border-4 border-[#95c11f] mb-[0.5rem]">
 							<img
 								alt="avatar"
-								src={avatar || "/avatarDef.png"}
+								src={avatar ? avatar : "/avatarDef.png"}
 								className="w-full h-full object-cover"
 							/>
 						</div>

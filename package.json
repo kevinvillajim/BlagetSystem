@@ -17,6 +17,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@react-pdf/renderer": "^3.4.4",
     "axios": "^1.7.2",
+    "file-saver": "^2.0.5",
     "localforage": "^1.10.0",
     "lodash.debounce": "^4.0.8",
     "match-sorter": "^6.3.4",

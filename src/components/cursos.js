@@ -94,7 +94,7 @@ const cursos = [
 		],
 	},
 	{
-		id: 2,
+		id: 1,
 		title: "Introducción a la seguridad y prevención de fraudes financieros",
 		content:
 			"Principales ataques de ciberdelincuentes y estafadores, tipos de fraudes, métodos de prevención y manejo seguro de transacciones.",

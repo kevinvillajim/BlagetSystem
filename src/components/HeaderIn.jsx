@@ -49,7 +49,7 @@ function HeaderIn({
 					onClick={handleModalClick}
 				>
 					<img
-						src={avatar || "/avatarDef.png"}
+						src={avatar ? avatar : "/avatarDef.png"}
 						alt="avatar1"
 						className="w-10 h-10 rounded-full object-cover"
 					/>

@@ -106,10 +106,10 @@ const Quiz = ({questions, unit, course}) => {
 	};
 
 	const getNextLink = () => {
-		if (unit === cursos[0].units.length) {
+		if (unit === cursos[course].units.length) {
 			return "/estudiante/dashboard";
 		} else {
-			return cursos[0].units[unit]?.url || "/";
+			return cursos[course].units[unit]?.url || "/";
 		}
 	};
 
@@ -171,7 +171,7 @@ const Quiz = ({questions, unit, course}) => {
 							<Box sx={style}>
 								<Typography id="modal-modal-title" variant="h6" component="h2">
 									Felicidades tu puntuación es: {score} / {questions.length}
-									{unit === cursos[0].units.length &&
+									{unit === cursos[course].units.length &&
 										localStorage.getItem("isFinished") === "true" && (
 											<>{" Has completado el curso con éxito"}</>
 										)}
@@ -187,7 +187,7 @@ const Quiz = ({questions, unit, course}) => {
 										}}
 										href={getNextLink()}
 									>
-										{unit == cursos[0].units.length
+										{unit == cursos[course].units.length
 											? "Regresar al Dashboard"
 											: "Continuar"}
 									</Button>
